@@ -209,6 +209,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Linux(21) - 多线程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-29 16:47:04 / 修改时间：16:49:15" itemprop="dateCreated datePublished" datetime="2020-01-29T16:47:04+08:00">2020-01-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下为今天上课的笔记，还没有进行整理。</p>
+<p>程序执行路径是函数栈的弹栈压栈过程<br>nptl线程库<br>pthread开头的接口，都不能用perror<br>宏 THREAD_ERROR_CHECK<br>宏的换行要加一个\然后回车<br>threadFunc线程函数<br>1110 threadFunc<br>进程库必须显式链接， gcc pthread_create.c -lpthread<br>静态库和动态库编译时都需要加-l</p>
+<p>主线程和子线程各加1亿，由于+操作不是原子操作，两个线程并行，则最终结果 经常不等于2亿。<br>各个进程的内存访问权限检查一致</p>
+<p>栈空间 pthread_stack.c<br>1、传地址<br>主线程里定义一个局部变量，通过传参的方式，把栈地址传给子进程：<br>int i = 10;<br>pthread_creat(&amp;pthid, threadFunc, &amp;i);<br>将threadFunc的p传给i<br>但不能直接使用p，需要转为int<em>型<br>int * pNum = (int *)p;<br>若子进程里执行</em>pNum = 5;<br>则主进程里i的值也变为5<br>2、pthread_twothread.c  1540i为啥用long<br>创建一个新线程，则需要新建一个线程id<br>pthread_join(pthid, NULL);<br>pthread_join(pthid1, NULL);<br>因为时间片轮转调度，赋值操作比创建进程快<br>i赋值以后进程才执行完<br>若解决此问题，则在pthread_create时直接传i的值（(void*i）即在创建的同时赋值，而不是传地址</p>
+<p>堆空间<br>主线程里malloc一段空间 指针为p<br>子进程往主进程里放数据<br>strcpy(p, “hello”); （报错 类型不匹配, 先强转p为char*）<br>主进程则可输出hellow</p>
+<p>文件 pthread_open.c<br>子进程把文件关闭后，主进程还能读吗 不能<br> pthread_creat(  ,  , 此处必须为长整形)；  1555<br>(void*)p或</p>
+<p>线程的等待 pthread_exit.c<br>子线程结束方式 pthread_exit<br>pthread_join 把子线程返回值得指针拿到<br>1608为啥传二级指针<br>int pthread_join(pthread_t th, void **thread_return);<br>**thread_return为二级指针的原因为 此函数内部需要修改一级指针</p>
+<p>pthread_exit_value.c</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/" class="post-title-link" itemprop="url">Linux20信号</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-28 14:44:19" itemprop="dateCreated datePublished" datetime="2020-01-28T14:44:19+08:00">2020-01-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/Linux[1]%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -240,7 +374,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-27 01:40:30" itemprop="dateModified" datetime="2020-01-27T01:40:30+08:00">2020-01-27</time>
+                <time title="修改时间：2020-01-29 16:46:38" itemprop="dateModified" datetime="2020-01-29T16:46:38+08:00">2020-01-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +399,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h2><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code></p>
+          <h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more" rel="contents">
@@ -274,6 +408,82 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/25/markdown%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/25/markdown%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Markdown语法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-25 16:52:59" itemprop="dateCreated datePublished" datetime="2020-01-25T16:52:59+08:00">2020-01-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-28 14:44:48" itemprop="dateModified" datetime="2020-01-28T14:44:48+08:00">2020-01-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/writing/" itemprop="url" rel="index">
+                    <span itemprop="name">writing</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>不喜欢Typora, 目前使用sublime。</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>
       
     </div>
 
@@ -357,20 +567,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -48,15 +48,20 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Horizon">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="以下为今天上课的笔记，还没有进行整理。 程序执行路径是函数栈的弹栈压栈过程nptl线程库pthread开头的接口，都不能用perror宏 THREAD_ERROR_CHECK宏的换行要加一个\然后回车threadFunc线程函数1110 threadFunc进程库必须显式链接， gcc pthread_create.c -lpthread静态库和动态库编译时都需要加-l 主线程和子线程各加1亿，由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux(21) - 多线程">
+<meta property="og:url" content="http://yoursite.com/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Horizon">
+<meta property="og:description" content="以下为今天上课的笔记，还没有进行整理。 程序执行路径是函数栈的弹栈压栈过程nptl线程库pthread开头的接口，都不能用perror宏 THREAD_ERROR_CHECK宏的换行要加一个\然后回车threadFunc线程函数1110 threadFunc进程库必须显式链接， gcc pthread_create.c -lpthread静态库和动态库编译时都需要加-l 主线程和子线程各加1亿，由">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-29T08:47:04.000Z">
+<meta property="article:modified_time" content="2020-01-29T08:49:15.861Z">
 <meta property="article:author" content="wk">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2020/">
+<link rel="canonical" href="http://yoursite.com/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
 
 
 <script id="page-configurations">
@@ -64,11 +69,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>归档 | Horizon</title>
+  <title>Linux(21) - 多线程 | Horizon</title>
   
 
 
@@ -204,113 +209,115 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 4 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux(21) - 多线程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-29 16:47:04 / 修改时间：16:49:15" itemprop="dateCreated datePublished" datetime="2020-01-29T16:47:04+08:00">2020-01-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-29T16:47:04+08:00"
-              content="2020-01-29">
-          01-29
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url">
-            <span itemprop="name">Linux(21) - 多线程</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-28T14:44:19+08:00"
-              content="2020-01-28">
-          01-28
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/" itemprop="url">
-            <span itemprop="name">Linux20信号</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-26T16:52:59+08:00"
-              content="2020-01-26">
-          01-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" itemprop="url">
-            <span itemprop="name">Linux(1) - 常用命令</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-25T16:52:59+08:00"
-              content="2020-01-25">
-          01-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/25/markdown%E8%AF%AD%E6%B3%95/" itemprop="url">
-            <span itemprop="name">Markdown语法</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+        <p>以下为今天上课的笔记，还没有进行整理。</p>
+<p>程序执行路径是函数栈的弹栈压栈过程<br>nptl线程库<br>pthread开头的接口，都不能用perror<br>宏 THREAD_ERROR_CHECK<br>宏的换行要加一个\然后回车<br>threadFunc线程函数<br>1110 threadFunc<br>进程库必须显式链接， gcc pthread_create.c -lpthread<br>静态库和动态库编译时都需要加-l</p>
+<p>主线程和子线程各加1亿，由于+操作不是原子操作，两个线程并行，则最终结果 经常不等于2亿。<br>各个进程的内存访问权限检查一致</p>
+<p>栈空间 pthread_stack.c<br>1、传地址<br>主线程里定义一个局部变量，通过传参的方式，把栈地址传给子进程：<br>int i = 10;<br>pthread_creat(&amp;pthid, threadFunc, &amp;i);<br>将threadFunc的p传给i<br>但不能直接使用p，需要转为int<em>型<br>int * pNum = (int *)p;<br>若子进程里执行</em>pNum = 5;<br>则主进程里i的值也变为5<br>2、pthread_twothread.c  1540i为啥用long<br>创建一个新线程，则需要新建一个线程id<br>pthread_join(pthid, NULL);<br>pthread_join(pthid1, NULL);<br>因为时间片轮转调度，赋值操作比创建进程快<br>i赋值以后进程才执行完<br>若解决此问题，则在pthread_create时直接传i的值（(void*i）即在创建的同时赋值，而不是传地址</p>
+<p>堆空间<br>主线程里malloc一段空间 指针为p<br>子进程往主进程里放数据<br>strcpy(p, “hello”); （报错 类型不匹配, 先强转p为char*）<br>主进程则可输出hellow</p>
+<p>文件 pthread_open.c<br>子进程把文件关闭后，主进程还能读吗 不能<br> pthread_creat(  ,  , 此处必须为长整形)；  1555<br>(void*)p或</p>
+<p>线程的等待 pthread_exit.c<br>子线程结束方式 pthread_exit<br>pthread_join 把子线程返回值得指针拿到<br>1608为啥传二级指针<br>int pthread_join(pthread_t th, void **thread_return);<br>**thread_return为二级指针的原因为 此函数内部需要修改一级指针</p>
+<p>pthread_exit_value.c</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/" rel="prev" title="Linux20信号">
+      <i class="fa fa-chevron-left"></i> Linux20信号
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODM5Ny8yNDg5MQ=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -510,6 +517,21 @@
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>

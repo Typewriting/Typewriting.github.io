@@ -1,24 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux(1) - 常用命令</title>
-    <url>/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h2><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code></p>
-<a id="more"></a>
-<p>配置密码<br><code>$ sudo passwd [username]</code><br>切换用户<br><code>$ su [username]</code><br>显示所有用户<br><code>cat /etc/passwd</code><br>退出当前用户<br><code>$ exit</code><br>删除用户<br><code>$ userdel [username]</code><br><code>$ userdel -r [username] #删除用户及家目录下的文件</code></p>
-<h2 id="文件目录相关"><a href="#文件目录相关" class="headerlink" title="文件目录相关"></a>文件目录相关</h2><p>显示当前工作目录<br><code>$ pwd</code></p>
-<p>查看当前工作目录下所有文件<br><code>$ ls</code><br><code>$ls -a    #同时显示隐藏文件</code><br><code>$ls -l    #显示详细信息</code><br><code>$ls -la   #显示详细信息（包括隐藏文件） 别名：ll</code><br><code>$ls -lh   #将文件大小按照合适的单位显示</code> </p>
-<p>改变当前工作目录 (前往某一目录)<br><code>$ cd [pathname]</code><br>回到上次目录<br><code>$ cd -</code><br>转移到家目录<br><code>$cd ~</code><br>转移到根目录<br><code>$ cd /</code><br>转移到上级目录<br><code>$ cd ..</code></p>
-<p>创建目录<br><code>$ mkdir [cataname]</code><br>删除目录<br><code>$ rmdir [cataname]    #不能删除非空目录</code><br><code>$ rm -rf [cataname]    #删除目录及其下一切文件</code><br>删除文件<br><code>$ rm [mode] [username]|[pathname]</code><br>移动文件<br><code>$ mv [mode] [源文件] [目标路径]|[目标文件]</code><br>拷贝文件<br><code>$ cp [mode] [源文件] [目标路径]|[目标文件]</code></p>
-<p>树状目录结构显示<br><code>$ sudo apt install tree    #首次使用需要安装tree</code><br><code>$ tree [pathname]    #显示目录树状结构</code></p>
-<h2 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h2><p>通过ls -l 命令可查看当前目录下文件权限<br>修改权限<br><code>$ chmod [who][+|-|=][mode] [filename]</code><br><code>$ chmod 666 [filename]    #可以用数字表示三类用户的权限</code></p>
-<h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2><p>使用find命令来查找文件<br><code>$ find [起始目录] [查找条件] [操作]</code></p>
+    <title>Linux(21) - 多线程</title>
+    <url>/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<p>以下为今天上课的笔记，还没有进行整理。</p>
+<p>程序执行路径是函数栈的弹栈压栈过程<br>nptl线程库<br>pthread开头的接口，都不能用perror<br>宏 THREAD_ERROR_CHECK<br>宏的换行要加一个\然后回车<br>threadFunc线程函数<br>1110 threadFunc<br>进程库必须显式链接， gcc pthread_create.c -lpthread<br>静态库和动态库编译时都需要加-l</p>
+<p>主线程和子线程各加1亿，由于+操作不是原子操作，两个线程并行，则最终结果 经常不等于2亿。<br>各个进程的内存访问权限检查一致</p>
+<p>栈空间 pthread_stack.c<br>1、传地址<br>主线程里定义一个局部变量，通过传参的方式，把栈地址传给子进程：<br>int i = 10;<br>pthread_creat(&amp;pthid, threadFunc, &amp;i);<br>将threadFunc的p传给i<br>但不能直接使用p，需要转为int<em>型<br>int * pNum = (int *)p;<br>若子进程里执行</em>pNum = 5;<br>则主进程里i的值也变为5<br>2、pthread_twothread.c  1540i为啥用long<br>创建一个新线程，则需要新建一个线程id<br>pthread_join(pthid, NULL);<br>pthread_join(pthid1, NULL);<br>因为时间片轮转调度，赋值操作比创建进程快<br>i赋值以后进程才执行完<br>若解决此问题，则在pthread_create时直接传i的值（(void*i）即在创建的同时赋值，而不是传地址</p>
+<p>堆空间<br>主线程里malloc一段空间 指针为p<br>子进程往主进程里放数据<br>strcpy(p, “hello”); （报错 类型不匹配, 先强转p为char*）<br>主进程则可输出hellow</p>
+<p>文件 pthread_open.c<br>子进程把文件关闭后，主进程还能读吗 不能<br> pthread_creat(  ,  , 此处必须为长整形)；  1555<br>(void*)p或</p>
+<p>线程的等待 pthread_exit.c<br>子线程结束方式 pthread_exit<br>pthread_join 把子线程返回值得指针拿到<br>1608为啥传二级指针<br>int pthread_join(pthread_t th, void **thread_return);<br>**thread_return为二级指针的原因为 此函数内部需要修改一级指针</p>
+<p>pthread_exit_value.c</p>
 ]]></content>
       <categories>
         <category>Linux</category>
       </categories>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux20信号</title>
+    <url>/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Linux(1) - 常用命令</title>
+    <url>/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code> <a id="more"></a><br>配置密码<br><code>$ sudo passwd [username]</code><br>切换用户<br><code>$ su [username]</code><br>显示所有用户<br><code>cat /etc/passwd</code><br>退出当前用户<br><code>$ exit</code><br>删除用户<br><code>$ userdel [username]</code><br><code>$ userdel -r [username] #删除用户及家目录下的文件</code></p>
+<h1 id="文件目录相关"><a href="#文件目录相关" class="headerlink" title="文件目录相关"></a>文件目录相关</h1><h2 id="显示与查看"><a href="#显示与查看" class="headerlink" title="显示与查看"></a>显示与查看</h2><p>显示当前工作目录<br><code>$ pwd</code><br>查看当前工作目录下所有文件<br><code>$ ls</code><br><code>$ ls -a    #同时显示隐藏文件</code><br><code>$ ls -l    #显示详细信息</code><br><code>$ ls -la   #显示详细信息（包括隐藏文件） 别名：ll</code><br><code>$ ls -lh   #将文件大小按照合适的单位显示</code><br>树状目录结构显示<br><code>$ sudo apt install tree    #首次使用需要安装tree</code><br><code>$ tree [pathname]    #显示目录树状结构</code></p>
+<h2 id="转移当前目录"><a href="#转移当前目录" class="headerlink" title="转移当前目录"></a>转移当前目录</h2><p>改变当前工作目录 (前往某一目录)<br><code>$ cd [pathname]</code><br>回到上次目录<br><code>$ cd -</code><br>转移到家目录<br><code>$cd ~</code><br>转移到根目录<br><code>$ cd /</code><br>转移到上级目录<br><code>$ cd ..</code></p>
+<h2 id="目录创建与删除"><a href="#目录创建与删除" class="headerlink" title="目录创建与删除"></a>目录创建与删除</h2><p>创建目录<br><code>$ mkdir [cataname]</code><br>删除目录<br><code>$ rmdir [cataname]    #不能删除非空目录</code><br><code>$ rm -rf [cataname]    #删除目录及其下一切文件</code></p>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p>删除文件<br><code>$ rm [mode] [username]|[pathname]</code><br>移动文件<br><code>$ mv [mode] [源文件] [目标路径]|[目标文件]</code><br>拷贝文件<br><code>$ cp [mode] [源文件] [目标路径]|[目标文件]</code></p>
+<h1 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h1><h2 id="查看权限"><a href="#查看权限" class="headerlink" title="查看权限"></a>查看权限</h2><p>通过ls -l 命令可查看当前目录下文件权限</p>
+<h2 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h2><p><code>$ chmod [who][+|-|=][mode] [filename]</code></p>
+<ul>
+<li>who代表用户类型：u表示用户，g表示组成员，o表示其他用户，a或者不写代表所有用户（ugo三个字母可以组合） </li>
+<li>+|-|=代表操作符：+表示添加某个权限，-表示取消某个权限，=表示设置成某种权限 </li>
+<li>mode代表模式，使用rwx三个字母的组合，r表示可读，w表示可写，x表示可执行</li>
+</ul>
+<p><code>$ chmod 666 [filename]    #可以用数字表示三类用户的权限</code></p>
+<h1 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h1><p>使用find命令来查找文件<br><code>$ find [起始目录] [查找条件] [操作]</code></p>
+<h2 id="查找条件"><a href="#查找条件" class="headerlink" title="查找条件"></a>查找条件</h2><p><code>-name</code>            查找文件名匹配所给字串的所有文件，字串内可用通配符*、?、[、]<br><code>-gid</code>             查找属于ID号为n的用户组的所有文件<br><code>-uid</code>             查找属于ID号为n的用户的所有文件<br><code>-group &#39;string&#39;</code>  查找属于用户组名为所给字串的所有的文件<br><code>-user &#39;string&#39;</code>   查找属于用户名为所给字串的所有的文件<br><code>-empty</code>           查找大小为0的目录或文件<br><code>-size n[bckw]</code>    n后面的字符表示单位，缺省为b，代表512字节的块<br><code>-type x</code>          查找类型为x的文件</p>
+<h2 id="使用通配符"><a href="#使用通配符" class="headerlink" title="使用通配符"></a>使用通配符</h2><h3 id="用来匹配任意个字符"><a href="#用来匹配任意个字符" class="headerlink" title="* 用来匹配任意个字符"></a>* 用来匹配任意个字符</h3><p>若当前目录里面有文件file，file1，file123，file2，file3，file4</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file*&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1 </span><br><span class="line">.&#x2F;file </span><br><span class="line">.&#x2F;file123</span><br><span class="line">.&#x2F;file2 </span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
+<h3 id="用来匹配1个任意字符"><a href="#用来匹配1个任意字符" class="headerlink" title="? 用来匹配1个任意字符"></a>? 用来匹配1个任意字符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file?&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1</span><br><span class="line">.&#x2F;file2</span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
+<h3 id="用来匹配某个范围内的字符"><a href="#用来匹配某个范围内的字符" class="headerlink" title="[] 用来匹配某个范围内的字符"></a>[] 用来匹配某个范围内的字符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file[0-9]&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1 </span><br><span class="line">.&#x2F;file2 </span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
+<h2 id="根据时间查找"><a href="#根据时间查找" class="headerlink" title="根据时间查找"></a>根据时间查找</h2><p><code>amin n</code> 查找n分钟以前被访问过的所有文件（+表示n分钟之前，-表示n分钟之内，+号和-号都不能省略）<br><code>cmin n</code> 查找n分钟以前文件状态被修改过的所有文件<br><code>mmin n</code> 查找n分钟以前文件内容被修改过的所有文件<br><code>atime n</code> 查找n天以前被访问过的所有文件<br><code>ctime n</code> 查找n天以前文件状态被修改过的所有文件<br><code>mtime n</code> 查找n天以前文件内容被修改过的所有文件</p>
+<h1 id="将一些命令封装在一个文件里方便快捷执行"><a href="#将一些命令封装在一个文件里方便快捷执行" class="headerlink" title="将一些命令封装在一个文件里方便快捷执行"></a>将一些命令封装在一个文件里方便快捷执行</h1><p>比如，我想自己定义一个qmake命令来完成以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp ~&#x2F;Makefile .   #将家目录里写好的Makefile文件拷贝到当前目录</span><br><span class="line">make              #执行make命令</span><br></pre></td></tr></table></figure>
+<p>则需要先<code>vim qmake</code> ，将上述代码写进去，<br>然后将qmake文件拷贝到/usr/bin目录下（需使用sudo权限）:<br><code>sudo cp qmake /usr/bin</code><br>当然，需要保证/usr/bin文件夹下没有名为qmake的文件。<br>以后只需要在当前目录下直接输入qmake即可执行定义好的上面两个操作了:)。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown语法</title>
+    <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>不喜欢Typora, 目前使用sublime。</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
+      <categories>
+        <category>writing</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
       </tags>
   </entry>
 </search>
