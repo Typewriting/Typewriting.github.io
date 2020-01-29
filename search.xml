@@ -4,6 +4,7 @@
     <title>Linux(21) - 多线程</title>
     <url>/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<p>以下为今天上课的笔记，还没有进行整理。</p>
+<a id="more"></a>
 <p>程序执行路径是函数栈的弹栈压栈过程<br>nptl线程库<br>pthread开头的接口，都不能用perror<br>宏 THREAD_ERROR_CHECK<br>宏的换行要加一个\然后回车<br>threadFunc线程函数<br>1110 threadFunc<br>进程库必须显式链接， gcc pthread_create.c -lpthread<br>静态库和动态库编译时都需要加-l</p>
 <p>主线程和子线程各加1亿，由于+操作不是原子操作，两个线程并行，则最终结果 经常不等于2亿。<br>各个进程的内存访问权限检查一致</p>
 <p>栈空间 pthread_stack.c<br>1、传地址<br>主线程里定义一个局部变量，通过传参的方式，把栈地址传给子进程：<br>int i = 10;<br>pthread_creat(&amp;pthid, threadFunc, &amp;i);<br>将threadFunc的p传给i<br>但不能直接使用p，需要转为int<em>型<br>int * pNum = (int *)p;<br>若子进程里执行</em>pNum = 5;<br>则主进程里i的值也变为5<br>2、pthread_twothread.c  1540i为啥用long<br>创建一个新线程，则需要新建一个线程id<br>pthread_join(pthid, NULL);<br>pthread_join(pthid1, NULL);<br>因为时间片轮转调度，赋值操作比创建进程快<br>i赋值以后进程才执行完<br>若解决此问题，则在pthread_create时直接传i的值（(void*i）即在创建的同时赋值，而不是传地址</p>
@@ -20,9 +21,15 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux20信号</title>
+    <title>Linux(20) - 信号</title>
     <url>/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
     <title>Linux(1) - 常用命令</title>
