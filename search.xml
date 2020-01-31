@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Linux(21) - 多线程</title>
-    <url>/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <url>/Horizon/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>进程是系统中程序执行和资源分配的基本单位。</p>
 <p>线程是在共享内存空间中并发执行的多道执行路径，是进程的基本调度单元，一个进程内可拥有多个线程。（程序执行路径即函数栈的弹栈压栈过程）</p>
 <p>它与同进程中的其他线程共享进程空间、<a id="more"></a>堆、代码、数据、文件描述符、信号等，只拥有自己的栈空间，大大减少了上下文切换的开销。</p>
@@ -54,7 +54,7 @@
   </entry>
   <entry>
     <title>Linux(20) - 信号</title>
-    <url>/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
+    <url>/Horizon/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>Linux</category>
@@ -65,7 +65,7 @@
   </entry>
   <entry>
     <title>Linux(1) - 常用命令</title>
-    <url>/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <url>/Horizon/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code> <a id="more"></a><br>配置密码<br><code>$ sudo passwd [username]</code><br>切换用户<br><code>$ su [username]</code><br>显示所有用户<br><code>cat /etc/passwd</code><br>退出当前用户<br><code>$ exit</code><br>删除用户<br><code>$ userdel [username]</code><br><code>$ userdel -r [username] #删除用户及家目录下的文件</code></p>
 <h1 id="文件目录相关"><a href="#文件目录相关" class="headerlink" title="文件目录相关"></a>文件目录相关</h1><h2 id="显示与查看"><a href="#显示与查看" class="headerlink" title="显示与查看"></a>显示与查看</h2><p>显示当前工作目录<br><code>$ pwd</code><br>查看当前工作目录下所有文件<br><code>$ ls</code><br><code>$ ls -a    #同时显示隐藏文件</code><br><code>$ ls -l    #显示详细信息</code><br><code>$ ls -la   #显示详细信息（包括隐藏文件） 别名：ll</code><br><code>$ ls -lh   #将文件大小按照合适的单位显示</code><br>树状目录结构显示<br><code>$ sudo apt install tree    #首次使用需要安装tree</code><br><code>$ tree [pathname]    #显示目录树状结构</code></p>
 <h2 id="转移当前目录"><a href="#转移当前目录" class="headerlink" title="转移当前目录"></a>转移当前目录</h2><p>改变当前工作目录 (前往某一目录)<br><code>$ cd [pathname]</code><br>回到上次目录<br><code>$ cd -</code><br>转移到家目录<br><code>$cd ~</code><br>转移到根目录<br><code>$ cd /</code><br>转移到上级目录<br><code>$ cd ..</code></p>
@@ -99,7 +99,7 @@
   </entry>
   <entry>
     <title>Markdown语法</title>
-    <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
+    <url>/Horizon/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>不喜欢Typora, 目前使用sublime。</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
       <categories>
