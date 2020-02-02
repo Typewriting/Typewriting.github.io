@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux之环境变量PS1</title>
+    <url>/2020/02/01/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8FPS1/</url>
+    <content><![CDATA[<h1 id="1-PS1是什么"><a href="#1-PS1是什么" class="headerlink" title="1.PS1是什么"></a>1.PS1是什么</h1><p>PS1是Linux终端用户的一个环境变量，用来定义命令行提示符的参数。<br>输入命令<br><code>$ echo $PS1</code><br>可得到当前定义的PS1值<br><code>\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$</code><br>export PS1=”[\e[31;1m]\u@[\e[34;1m]\h [\e[36;1m]\w $[\e[37;1m] “<br>                                                    [\e[36;1m]\w[\e[0m]]\$ “<br><code>PS1=&quot;\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\w\[\e[0m\]]\\$ &quot;</code></p>
+<h1 id="2-PS1参数"><a href="#2-PS1参数" class="headerlink" title="2.PS1参数"></a>2.PS1参数</h1><h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><p>　　\d ：代表日期，格式为weekday month date，例如：”Mon Aug 1”</p>
+<p>　　\H ：完整的主机名称</p>
+<p>　　\h ：仅取主机名中的第一个名字</p>
+<p>　　\t ：显示时间为24小时格式，如：HH：MM：SS</p>
+<p>　　\T ：显示时间为12小时格式</p>
+<p>　　\A ：显示时间为24小时格式：HH：MM</p>
+<p>　　\u ：当前用户的账号名称</p>
+<p>　　\v ：BASH的版本信息</p>
+<p>　　\w ：完整的工作目录名称</p>
+<p>　　\W ：利用basename取得工作目录名称，只显示最后一个目录名</p>
+<p>　　# ：下达的第几个命令</p>
+<p>　　$ ：提示字符，如果是root用户，提示符为 # ，普通用户则为 $</p>
+<p>所以linux默认的命令行提示信息的格式<br><code>PS1=&#39;[\u@\h \W]\$ &#39;</code>  的意思就是：<br>[当前用户的账号名称@主机名的第一个名字 工作目录的最后一层目录名]#</p>
+<p>##颜色设置参数<br>　在PS1中设置字符颜色的格式为：<code>\[\e[F;Bm\]........\[\e[0m\]</code><br>其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47,<code>\[\e[0m\]</code>作为颜色设定的结束。</p>
+<p>　　颜色对照表：</p>
+<p>　　　　F    B</p>
+<p>　　　　30  40 黑色</p>
+<p>　　　　31  41 红色</p>
+<p>　　　　32  42 绿色</p>
+<p>　　　　33  43 黄色</p>
+<p>　　　　34  44 蓝色</p>
+<p>　　　　35  45 紫红色</p>
+<p>　　　　36  46 青蓝色</p>
+<p>　　　　37  47 白色<br>修改颜色，只需将对应数字套入设置格式中即可。</p>
+<p>比如要设置命令行的格式为绿字黑底([\e[32;40m])，显示当前用户的账号名称(\u)、主机的第一个名字(\h)、完整的当前工作目录名称(\w)、24小时格式时间(\t)，可以直接在命令行键入如下命令：<br><code>$ PS1=&#39;[\[\e[32;40m\]\u@\h \w \t]$ \[\e[0m\]&#39;</code><br>用以上方法修改PS1变量只是临时性的，下次登录即恢复原样。</p>
+<h1 id="3-修改-bashrc文件-永久保存命令行样式"><a href="#3-修改-bashrc文件-永久保存命令行样式" class="headerlink" title="3.修改.bashrc文件,永久保存命令行样式"></a>3.修改.bashrc文件,永久保存命令行样式</h1><p>在家目录下使用ls -la命令即可看到.bashrc这个文件</p>
+<p>编辑.bashrc文件，加入这一行：(以下是本人的设置)</p>
+<p><code>export PS1=&quot;\[\e[31;1m\]\u@\[\e[34;1m\]\h \[\e[36;1m\]\w $\[\e[37;1m\] &quot;</code></p>
+<p>保存退出，然后重新加载bash配置文件:</p>
+<p><code>$ source .bashrc</code></p>
+<p>即可永久生效。<br>———<br>参考来源 <a href="https://www.cnblogs.com/Q--T/p/5394993.html" target="_blank" rel="noopener">https://www.cnblogs.com/Q--T/p/5394993.html</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux(21) - 多线程</title>
-    <url>/horizon/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <url>/2020/01/29/Linux21%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>进程是系统中程序执行和资源分配的基本单位。</p>
 <p>线程是在共享内存空间中并发执行的多道执行路径，是进程的基本调度单元，一个进程内可拥有多个线程。（程序执行路径即函数栈的弹栈压栈过程）</p>
 <p>它与同进程中的其他线程共享进程空间、<a id="more"></a>堆、代码、数据、文件描述符、信号等，只拥有自己的栈空间，大大减少了上下文切换的开销。</p>
@@ -54,7 +97,7 @@
   </entry>
   <entry>
     <title>Linux(20) - 信号</title>
-    <url>/horizon/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
+    <url>/2020/01/28/Linux20%E4%BF%A1%E5%8F%B7/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>Linux</category>
@@ -65,7 +108,7 @@
   </entry>
   <entry>
     <title>Linux(1) - 常用命令</title>
-    <url>/horizon/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <url>/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code> <a id="more"></a><br>配置密码<br><code>$ sudo passwd [username]</code><br>切换用户<br><code>$ su [username]</code><br>显示所有用户<br><code>cat /etc/passwd</code><br>退出当前用户<br><code>$ exit</code><br>删除用户<br><code>$ userdel [username]</code><br><code>$ userdel -r [username] #删除用户及家目录下的文件</code></p>
 <h2 id="给某一普通用户配置sudo权限"><a href="#给某一普通用户配置sudo权限" class="headerlink" title="给某一普通用户配置sudo权限"></a>给某一普通用户配置sudo权限</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#1.切换到root用户：</span><br><span class="line">$ su root </span><br><span class="line"></span><br><span class="line">#2.添加sudoers文件写权限：</span><br><span class="line">$ chmod u+w &#x2F;etc&#x2F;sudoers </span><br><span class="line"></span><br><span class="line">#3.编辑sudoers文件</span><br><span class="line">vim &#x2F;etc&#x2F;sudoers</span><br><span class="line"></span><br><span class="line">#找到 root ALL&#x3D;(ALL) ALL，在他其下面添加：</span><br><span class="line">xxx ALL&#x3D;(ALL) ALL (xxx &#x3D; 用户名)</span><br><span class="line"></span><br><span class="line">#可选一下任意一种形式：</span><br><span class="line">#允许用户youuser执行sudo命令(需要输入密码):</span><br><span class="line">username            ALL&#x3D;(ALL)                ALL</span><br><span class="line">#允许用户组youuser里面的用户执行sudo命令(需要输入密码)：</span><br><span class="line">%username           ALL&#x3D;(ALL)                ALL</span><br><span class="line">#允许用户youuser执行sudo命令,并且在执行的时候不输入密码：</span><br><span class="line">username            ALL&#x3D;(ALL)                NOPASSWD: ALL</span><br><span class="line">#允许用户组youuser里面的用户执行sudo命令,并且在执行的时候不输入密码：</span><br><span class="line">%username           ALL&#x3D;(ALL)                NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line">#4.撤销sudoers文件写权限：</span><br><span class="line">$ chmod u-w &#x2F;etc&#x2F;sudoers</span><br></pre></td></tr></table></figure>
 <p>如此，普通用户就可以使用sudo了。<br>（来源：<a href="https://www.jianshu.com/p/3d435e09712a）" target="_blank" rel="noopener">https://www.jianshu.com/p/3d435e09712a）</a></p>
@@ -81,8 +124,10 @@
 <li>mode代表模式，使用rwx三个字母的组合，r表示可读，w表示可写，x表示可执行</li>
 </ul>
 <p><code>$ chmod 666 [filename]    #可以用数字表示三类用户的权限</code></p>
+<h2 id="修改文件所有者、所在组"><a href="#修改文件所有者、所在组" class="headerlink" title="修改文件所有者、所在组"></a>修改文件所有者、所在组</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#修改文件所有者：</span><br><span class="line">chgrp [username] [filename] -R</span><br><span class="line">#修改文件所在组：</span><br><span class="line">chown [username] [filename]  -R</span><br><span class="line"></span><br><span class="line"># -R表示递归目录下所有文件</span><br></pre></td></tr></table></figure>
+
 <h1 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h1><p>使用find命令来查找文件<br><code>$ find [起始目录] [查找条件] [操作]</code></p>
-<h2 id="查找条件"><a href="#查找条件" class="headerlink" title="查找条件"></a>查找条件</h2><p><code>-name</code>            查找文件名匹配所给字串的所有文件，字串内可用通配符*、?、[、]<br><code>-gid</code>             查找属于ID号为n的用户组的所有文件<br><code>-uid</code>             查找属于ID号为n的用户的所有文件<br><code>-group &#39;string&#39;</code>  查找属于用户组名为所给字串的所有的文件<br><code>-user &#39;string&#39;</code>   查找属于用户名为所给字串的所有的文件<br><code>-empty</code>           查找大小为0的目录或文件<br><code>-size n[bckw]</code>    n后面的字符表示单位，缺省为b，代表512字节的块<br><code>-type x</code>          查找类型为x的文件</p>
+<h2 id="查找条件"><a href="#查找条件" class="headerlink" title="查找条件"></a>查找条件</h2><p><code>-name</code>            查找文件名匹配所给<strong>字符串</strong>的所有文件，字串内可用通配符*、?、[、]<br><code>-gid</code>             查找属于ID号为n的用户组的所有文件<br><code>-uid</code>             查找属于ID号为n的用户的所有文件<br><code>-group &#39;string&#39;</code>  查找属于用户组名为所给字串的所有的文件<br><code>-user &#39;string&#39;</code>   查找属于用户名为所给字串的所有的文件<br><code>-empty</code>           查找大小为0的目录或文件<br><code>-size n[bckw]</code>    n后面的字符表示单位，缺省为b，代表512字节的块<br><code>-type x</code>          查找类型为x的文件</p>
 <h2 id="使用通配符"><a href="#使用通配符" class="headerlink" title="使用通配符"></a>使用通配符</h2><h3 id="用来匹配任意个字符"><a href="#用来匹配任意个字符" class="headerlink" title="* 用来匹配任意个字符"></a>* 用来匹配任意个字符</h3><p>若当前目录里面有文件file，file1，file123，file2，file3，file4</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file*&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1 </span><br><span class="line">.&#x2F;file </span><br><span class="line">.&#x2F;file123</span><br><span class="line">.&#x2F;file2 </span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
 <h3 id="用来匹配1个任意字符"><a href="#用来匹配1个任意字符" class="headerlink" title="? 用来匹配1个任意字符"></a>? 用来匹配1个任意字符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file?&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1</span><br><span class="line">.&#x2F;file2</span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
@@ -91,6 +136,9 @@
 <h1 id="将一些命令封装在一个文件里方便快捷执行"><a href="#将一些命令封装在一个文件里方便快捷执行" class="headerlink" title="将一些命令封装在一个文件里方便快捷执行"></a>将一些命令封装在一个文件里方便快捷执行</h1><p>比如，我想自己定义一个qmake命令来完成以下操作：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp ~&#x2F;Makefile .   #将家目录里写好的Makefile文件拷贝到当前目录</span><br><span class="line">make              #执行make命令</span><br></pre></td></tr></table></figure>
 <p>则需要先<code>vim qmake</code> ，将上述代码写进去，<br>然后将qmake文件拷贝到/usr/bin目录下（需使用sudo权限）:<br><code>sudo cp qmake /usr/bin</code><br>当然，需要保证/usr/bin文件夹下没有名为qmake的文件。<br>以后只需要在当前目录下直接输入qmake即可执行定义好的上面两个操作了:)。</p>
+<p>#sudo 出现unable to resolve host 解决方法<br>虽然sudo 还是可以正常执行, 所以就直接从/etc/hosts 设定, 让abc(hostname) 可以解回127.0.0.1 的IP 即可.<br>在127.0.0.1 localhost 后面加上主机名称(hostname) 即可:<br>127.0.0.1       localhost cloud</p>
+<p>#环境变量PS1<br>参考来源：<a href="https://www.cnblogs.com/Q--T/p/5394993.html" target="_blank" rel="noopener">https://www.cnblogs.com/Q--T/p/5394993.html</a><br>PS1是Linux终端用户的一个环境变量，用来定义命令行提示符的参数。<br>在终端输入命令：</p>
+<p>export PS1=”[\e[31;1m]\u@[\e[34;1m]\h [\e[36;1m]\w $[\e[37;1m] “ </p>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -101,7 +149,7 @@
   </entry>
   <entry>
     <title>Markdown语法</title>
-    <url>/horizon/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
+    <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>不喜欢Typora, 目前使用sublime。</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
       <categories>
