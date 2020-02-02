@@ -240,7 +240,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 13:50:41" itemprop="dateModified" datetime="2020-02-02T13:50:41+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-02 13:53:38" itemprop="dateModified" datetime="2020-02-02T13:53:38+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,39 +265,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-PS1是什么"><a href="#1-PS1是什么" class="headerlink" title="1.PS1是什么"></a>1.PS1是什么</h1><p>PS1是Linux终端用户的一个环境变量，用来定义命令行提示符的参数。<br>输入命令<br><code>$ echo $PS1</code><br>可得到当前定义的PS1值<br><code>\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$</code><br>export PS1=”[\e[31;1m]\u@[\e[34;1m]\h [\e[36;1m]\w $[\e[37;1m] “<br>                                                    [\e[36;1m]\w[\e[0m]]\$ “<br><code>PS1=&quot;\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\w\[\e[0m\]]\\$ &quot;</code></p>
-<h1 id="2-PS1参数"><a href="#2-PS1参数" class="headerlink" title="2.PS1参数"></a>2.PS1参数</h1><h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><p>　　\d ：代表日期，格式为weekday month date，例如：”Mon Aug 1”</p>
-<p>　　\H ：完整的主机名称</p>
-<p>　　\h ：仅取主机名中的第一个名字</p>
-<p>　　\t ：显示时间为24小时格式，如：HH：MM：SS</p>
-<p>　　\T ：显示时间为12小时格式</p>
-<p>　　\A ：显示时间为24小时格式：HH：MM</p>
-<p>　　\u ：当前用户的账号名称</p>
-<p>　　\v ：BASH的版本信息</p>
-<p>　　\w ：完整的工作目录名称</p>
-<p>　　\W ：利用basename取得工作目录名称，只显示最后一个目录名</p>
-<p>　　# ：下达的第几个命令</p>
-<p>　　$ ：提示字符，如果是root用户，提示符为 # ，普通用户则为 $</p>
-<p>所以linux默认的命令行提示信息的格式<br><code>PS1=&#39;[\u@\h \W]\$ &#39;</code>  的意思就是：<br>[当前用户的账号名称@主机名的第一个名字 工作目录的最后一层目录名]#</p>
-<p>##颜色设置参数<br>　在PS1中设置字符颜色的格式为：<code>\[\e[F;Bm\]........\[\e[0m\]</code><br>其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47,<code>\[\e[0m\]</code>作为颜色设定的结束。</p>
-<p>　　颜色对照表：</p>
-<p>　　　　F    B</p>
-<p>　　　　30  40 黑色</p>
-<p>　　　　31  41 红色</p>
-<p>　　　　32  42 绿色</p>
-<p>　　　　33  43 黄色</p>
-<p>　　　　34  44 蓝色</p>
-<p>　　　　35  45 紫红色</p>
-<p>　　　　36  46 青蓝色</p>
-<p>　　　　37  47 白色<br>修改颜色，只需将对应数字套入设置格式中即可。</p>
-<p>比如要设置命令行的格式为绿字黑底([\e[32;40m])，显示当前用户的账号名称(\u)、主机的第一个名字(\h)、完整的当前工作目录名称(\w)、24小时格式时间(\t)，可以直接在命令行键入如下命令：<br><code>$ PS1=&#39;[\[\e[32;40m\]\u@\h \w \t]$ \[\e[0m\]&#39;</code><br>用以上方法修改PS1变量只是临时性的，下次登录即恢复原样。</p>
-<h1 id="3-修改-bashrc文件-永久保存命令行样式"><a href="#3-修改-bashrc文件-永久保存命令行样式" class="headerlink" title="3.修改.bashrc文件,永久保存命令行样式"></a>3.修改.bashrc文件,永久保存命令行样式</h1><p>在家目录下使用ls -la命令即可看到.bashrc这个文件</p>
-<p>编辑.bashrc文件，加入这一行：(以下是本人的设置)</p>
-<p><code>export PS1=&quot;\[\e[31;1m\]\u@\[\e[34;1m\]\h \[\e[36;1m\]\w $\[\e[37;1m\] &quot;</code></p>
-<p>保存退出，然后重新加载bash配置文件:</p>
-<p><code>$ source .bashrc</code></p>
-<p>即可永久生效。<br>———<br>参考来源 <a href="https://www.cnblogs.com/Q--T/p/5394993.html" target="_blank" rel="noopener">https://www.cnblogs.com/Q--T/p/5394993.html</a></p>
-
+          <h1 id="1-PS1是什么"><a href="#1-PS1是什么" class="headerlink" title="1.PS1是什么"></a>1.PS1是什么</h1><p>PS1是Linux终端用户的一个环境变量，用来定义命令行提示符的参数。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/01/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8FPS1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -339,10 +315,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-01-29 16:47:04 / 修改时间：22:35:59" itemprop="dateCreated datePublished" datetime="2020-01-29T16:47:04+08:00">2020-01-29</time>
+              <time title="创建时间：2020-01-29 16:47:04" itemprop="dateCreated datePublished" datetime="2020-01-29T16:47:04+08:00">2020-01-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-02 17:22:41" itemprop="dateModified" datetime="2020-02-02T17:22:41+08:00">2020-02-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
