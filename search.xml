@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>网络编程</title>
+    <url>/2020/02/03/Linux%2022%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>Linux之环境变量PS1</title>
     <url>/2020/02/01/Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8FPS1/</url>
     <content><![CDATA[<h1 id="1-PS1是什么"><a href="#1-PS1是什么" class="headerlink" title="1.PS1是什么"></a>1.PS1是什么</h1><p>PS1是Linux终端用户的一个环境变量，用来定义命令行提示符的参数。<a id="more"></a><br>输入命令<br><code>$ echo $PS1</code><br>可得到当前定义的PS1值<br><code>\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$</code></p>
 <h1 id="2-PS1参数"><a href="#2-PS1参数" class="headerlink" title="2.PS1参数"></a>2.PS1参数</h1><h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　\d ：代表日期，格式为weekday month date，例如：&quot;Mon Aug 1&quot;</span><br><span class="line"></span><br><span class="line">　　\H ：完整的主机名称</span><br><span class="line"></span><br><span class="line">　　\h ：仅取主机名中的第一个名字</span><br><span class="line"></span><br><span class="line">　　\t ：显示时间为24小时格式，如：HH：MM：SS</span><br><span class="line"></span><br><span class="line">　　\T ：显示时间为12小时格式</span><br><span class="line"></span><br><span class="line">　　\A ：显示时间为24小时格式：HH：MM</span><br><span class="line"></span><br><span class="line">　　\u ：当前用户的账号名称</span><br><span class="line"></span><br><span class="line">　　\v ：BASH的版本信息</span><br><span class="line"></span><br><span class="line">　　\w ：完整的工作目录名称</span><br><span class="line"></span><br><span class="line">　　\W ：利用basename取得工作目录名称，只显示最后一个目录名</span><br><span class="line"></span><br><span class="line">　　\# ：下达的第几个命令</span><br><span class="line"></span><br><span class="line">　　\$ ：提示字符，如果是root用户，提示符为 # ，普通用户则为 $</span><br></pre></td></tr></table></figure>
 <p>所以linux默认的命令行提示信息的格式<br><code>PS1=&#39;[\u@\h \W]\$ &#39;</code>  的意思就是：<br>[当前用户的账号名称@主机名的第一个名字 工作目录的最后一层目录名]#</p>
-<p>##颜色设置参数<br>　在PS1中设置字符颜色的格式为：<code>\[\e[F;Bm\]........\[\e[0m\]</code><br>其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47,<code>\[\e[0m\]</code>作为颜色设定的结束。</p>
-<p>　　颜色对照表：</p>
+<p>##颜色设置参数<br>　在PS1中设置字符颜色的格式为：<code>\[\e[F;Bm\]........\[\e[0m\]</code><br>其中“F“为字体颜色，编号为30-37，“B”为背景颜色，编号为40-47,<code>\[\e[0m\]</code>作为颜色设定的结束。<br>　　颜色对照表：</p>
 <p>　　　　F    B</p>
 <p>　　　　30  40 黑色</p>
 <p>　　　　31  41 红色</p>
@@ -16,11 +20,13 @@
 <p>　　　　34  44 蓝色</p>
 <p>　　　　35  45 紫红色</p>
 <p>　　　　36  46 青蓝色</p>
-<p>　　　　37  47 白色<br>修改颜色，只需将对应数字套入设置格式中即可。</p>
+<p>　　　　37  47 白色</p>
+<p>修改颜色，只需将对应数字套入设置格式中即可。</p>
 <p>比如要设置命令行的格式为绿字黑底([\e[32;40m])，显示当前用户的账号名称(\u)、主机的第一个名字(\h)、完整的当前工作目录名称(\w)、24小时格式时间(\t)，可以直接在命令行键入如下命令：<br><code>$ PS1=&#39;[\[\e[32;40m\]\u@\h \w \t]$ \[\e[0m\]&#39;</code><br>用以上方法修改PS1变量只是临时性的，下次登录即恢复原样。</p>
 <h1 id="3-修改-bashrc文件-永久保存命令行样式"><a href="#3-修改-bashrc文件-永久保存命令行样式" class="headerlink" title="3.修改.bashrc文件,永久保存命令行样式"></a>3.修改.bashrc文件,永久保存命令行样式</h1><p>在家目录下使用ls -la命令即可看到.bashrc这个文件</p>
 <p>编辑.bashrc文件，加入这一行：(以下是本人的设置)</p>
-<p><code>export PS1=&quot;\[\e[31;1m\]\u@\[\e[34;1m\]\h \[\e[36;1m\]\w $\[\e[37;1m\] &quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PS1&#x3D;&quot;\[\e[31;1m\]\u@\[\e[34;1m\]\h \[\e[36;1m\]\w $\[\e[37;1m\] &quot;</span><br></pre></td></tr></table></figure>
+
 <p>保存退出，然后重新加载bash配置文件:</p>
 <p><code>$ source .bashrc</code></p>
 <p>即可永久生效。<br>———<br>参考来源 <a href="https://www.cnblogs.com/Q--T/p/5394993.html" target="_blank" rel="noopener">https://www.cnblogs.com/Q--T/p/5394993.html</a></p>
@@ -148,8 +154,10 @@
 <h1 id="将一些命令封装在一个文件里方便快捷执行"><a href="#将一些命令封装在一个文件里方便快捷执行" class="headerlink" title="将一些命令封装在一个文件里方便快捷执行"></a>将一些命令封装在一个文件里方便快捷执行</h1><p>比如，我想自己定义一个qmake命令来完成以下操作：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp ~&#x2F;Makefile .   #将家目录里写好的Makefile文件拷贝到当前目录</span><br><span class="line">make              #执行make命令</span><br></pre></td></tr></table></figure>
 <p>则需要先<code>vim qmake</code> ，将上述代码写进去，<br>然后将qmake文件拷贝到/usr/bin目录下（需使用sudo权限）:<br><code>sudo cp qmake /usr/bin</code><br>当然，需要保证/usr/bin文件夹下没有名为qmake的文件。<br>以后只需要在当前目录下直接输入qmake即可执行定义好的上面两个操作了:)。</p>
-<p>#sudo 出现unable to resolve host 解决方法<br>虽然sudo 还是可以正常执行, 所以就直接从/etc/hosts 设定, 让abc(hostname) 可以解回127.0.0.1 的IP 即可.<br>在127.0.0.1 localhost 后面加上主机名称(hostname) 即可:<br>127.0.0.1       localhost cloud</p>
-]]></content>
+<h1 id="sudo-出现unable-to-resolve-host-解决方法"><a href="#sudo-出现unable-to-resolve-host-解决方法" class="headerlink" title="sudo 出现unable to resolve host 解决方法"></a>sudo 出现unable to resolve host 解决方法</h1><p>虽然sudo 还是可以正常执行, 所以就直接从/etc/hosts 设定, 让abc(hostname) 可以解回127.0.0.1 的IP 即可.<br>在127.0.0.1 localhost 后面加上主机名称(hostname) 即可:<br>127.0.0.1       localhost cloud</p>
+<h1 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#1、方法一使用hostnamectl命令</span><br><span class="line"># hostnamectl set-hostname [hostname]</span><br><span class="line"> </span><br><span class="line">#方法二：修改配置文件 &#x2F;etc&#x2F;hostname </span><br><span class="line"># vim &#x2F;etc&#x2F;hostname</span><br><span class="line">保存退出</span><br></pre></td></tr></table></figure>
+
+<h1 id="ubuntu环境下安装vimplus插件"><a href="#ubuntu环境下安装vimplus插件" class="headerlink" title="ubuntu环境下安装vimplus插件"></a>ubuntu环境下安装vimplus插件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1  sudo apt install git </span><br><span class="line"></span><br><span class="line">2  git clone https:&#x2F;&#x2F;gitee.com&#x2F;cskaoyan123&#x2F;vimplus.git ~&#x2F;.vimplus</span><br><span class="line"></span><br><span class="line">3  .cd ~&#x2F;.vimplus</span><br><span class="line"></span><br><span class="line">4  .&#x2F;install.sh</span><br><span class="line"></span><br><span class="line">5  vim-addon-manager remove youcompleteme</span><br><span class="line"></span><br><span class="line">相关帮助文档</span><br><span class="line">https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;75cde8a80fd7</span><br><span class="line"></span><br><span class="line">预生成代码在路径</span><br><span class="line">~&#x2F;.vim&#x2F;plugged&#x2F;prepare-code下</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -160,7 +168,7 @@
   <entry>
     <title>Markdown语法</title>
     <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>不喜欢Typora, 目前使用sublime。</p>
+    <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>比较Typora, 目前使用sublime。</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
       <categories>
         <category>writing</category>
