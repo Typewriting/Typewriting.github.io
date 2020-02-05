@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CentOS用gcc编译时提示缺少linux\unix.c文件</title>
+    <title>CentOS用gcc编译时提示缺少&lt;linux\unix.c&gt;头文件</title>
     <url>/2020/02/05/CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/</url>
-    <content><![CDATA[<p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：</p>
+    <content><![CDATA[<p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：<a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@cj508 &#x2F;home&#x2F;wk $ gcc main.c</span><br><span class="line">In file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;dirent.h:233,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;func.h:7,</span><br><span class="line">                 from main.c:1:</span><br><span class="line">&#x2F;usr&#x2F;include&#x2F;bits&#x2F;local_lim.h:38:10: fatal error: linux&#x2F;limits.h: No such file or directory</span><br><span class="line"> #include &lt;linux&#x2F;limits.h&gt;</span><br><span class="line">          ^~~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
 
 <p>意思就是致命错误：缺少linux/limits.h头文件</p>

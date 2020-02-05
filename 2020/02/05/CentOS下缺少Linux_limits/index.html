@@ -48,15 +48,15 @@
   };
 </script>
 
-  <meta name="description" content="今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误： 12345678root@cj508 &#x2F;home&#x2F;wk $ gcc main.cIn file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,                 from &#x2F;u">
+  <meta name="description" content="今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS用gcc编译时提示缺少linux\unix.c文件">
+<meta property="og:title" content="CentOS用gcc编译时提示缺少&lt;linux\unix.c&gt;头文件">
 <meta property="og:url" content="https://github.com/Typewriting/Typewriting.github.io/2020/02/05/CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/index.html">
 <meta property="og:site_name" content="Horizon">
-<meta property="og:description" content="今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误： 12345678root@cj508 &#x2F;home&#x2F;wk $ gcc main.cIn file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,                 from &#x2F;u">
+<meta property="og:description" content="今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-05T08:52:59.000Z">
-<meta property="article:modified_time" content="2020-02-05T08:49:46.899Z">
+<meta property="article:modified_time" content="2020-02-05T09:18:02.888Z">
 <meta property="article:author" content="wk">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="CentOS">
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title>CentOS用gcc编译时提示缺少linux\unix.c文件 | Horizon</title>
+  <title>CentOS用gcc编译时提示缺少<linux\unix.c>头文件 | Horizon</title>
   
 
 
@@ -228,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CentOS用gcc编译时提示缺少linux\unix.c文件
+          CentOS用gcc编译时提示缺少<linux\unix.c>头文件
         </h1>
 
         <div class="post-meta">
@@ -239,7 +239,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-05 16:52:59 / 修改时间：16:49:46" itemprop="dateCreated datePublished" datetime="2020-02-05T16:52:59+08:00">2020-02-05</time>
+              <time title="创建时间：2020-02-05 16:52:59 / 修改时间：17:18:02" itemprop="dateCreated datePublished" datetime="2020-02-05T16:52:59+08:00">2020-02-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：</p>
+        <p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：<a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@cj508 &#x2F;home&#x2F;wk $ gcc main.c</span><br><span class="line">In file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;dirent.h:233,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;func.h:7,</span><br><span class="line">                 from main.c:1:</span><br><span class="line">&#x2F;usr&#x2F;include&#x2F;bits&#x2F;local_lim.h:38:10: fatal error: linux&#x2F;limits.h: No such file or directory</span><br><span class="line"> #include &lt;linux&#x2F;limits.h&gt;</span><br><span class="line">          ^~~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
 
 <p>意思就是致命错误：缺少linux/limits.h头文件</p>
