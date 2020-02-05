@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS(rpm管理)和ubuntu(dpkg管理) 基本操作</title>
+    <url>/2020/02/05/Linux%20-%20CentOS(rpm%E7%AE%A1%E7%90%86)%E5%92%8Cubuntu(dpkg%E7%AE%A1%E7%90%86)/</url>
+    <content><![CDATA[<h1 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h1><h2 id="rpm-文件管理"><a href="#rpm-文件管理" class="headerlink" title="rpm 文件管理"></a>rpm 文件管理</h2><p>rpm -i <rpm file name>     安装指定的 rpm 文件<br>rpm -e <package-name>      删除指定的软件包<a id="more"></a><br>rpm -U <rpm file name>     用指定的 rpm 文件升级同名包<br>rpm -q <package-name>     查询指定的软件包在系统中是否安装</p>
+<p>其中查询还有详细的命令，如下:<br>rpm -qf &lt;/path/to/file&gt;     查询系统中指定文件所属的软件包<br>例如: rpm -qf /bin/ls<br>rpm -qa     查询系统中安装的所有RPM软件包<br>rpm -ql <package-name>     查询一个已安装软件包里所包含的文件<br>rpm -qc <package-name>     查看一个已安装软件包的配置文件位置<br>rpm -qi <package-name>     查询一个已安装软件包的描述信息<br>rpm -qd <package-name>     查看一个已安装软件包的文档安装位置<br>rpm -qR <package-name>     查询一个已安装软件包的最低依赖要求<br>rpm -V <package-name>     校验指定的软件包</p>
+<p>rpm -qpl <package-name>     查询一个未安装软件包里所包含的文件<br>rpm -qpc <package-name>     查看一个未安装软件包的配置文件位置<br>rpm -qpi <package-name>     查询一个未安装软件包的描述信息<br>rpm -qpd <package-name>     查看一个未安装软件包的文档安装位置<br>rpm -qpR <package-name>     查询一个未安装软件包的最低依赖要求</p>
+<h2 id="yum针对软件包操作常用命令"><a href="#yum针对软件包操作常用命令" class="headerlink" title="yum针对软件包操作常用命令"></a>yum针对软件包操作常用命令</h2><ol>
+<li><p>使用YUM查找软件包<br>命令：yum search </p>
+</li>
+<li><p>列出所有可安装的软件包<br>命令：yum list </p>
+</li>
+<li><p>列出所有可更新的软件包<br>命令：yum list updates </p>
+</li>
+<li><p>列出所有已安装的软件包<br>命令：yum list installed </p>
+</li>
+<li><p>列出所有已安装但不在 Yum Repository 内的软件包<br>命令：yum list extras </p>
+</li>
+<li><p>使用YUM获取软件包信息<br>命令：yum info </p>
+</li>
+<li><p>列出所有可更新的软件包信息<br>命令：yum info updates </p>
+</li>
+<li><p>列出所有已安装的软件包信息<br>命令：yum info installed </p>
+</li>
+<li><p>列出所有已安装但不在 Yum Repository 内的软件包信息<br>命令：yum info extras </p>
+</li>
+<li><p>列出软件包提供哪些文件<br>命令：yum provides</p>
+</li>
+</ol>
+<p>此部分原文链接：<a href="https://blog.csdn.net/don_chiang709/article/details/91571424" target="_blank" rel="noopener">https://blog.csdn.net/don_chiang709/article/details/91571424</a></p>
+<hr>
+<h1 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h1><h2 id="dpkg-文件管理"><a href="#dpkg-文件管理" class="headerlink" title="dpkg 文件管理"></a>dpkg 文件管理</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -l  [表达式] </span><br><span class="line">l &#x3D; list: 列出当前系统中所有的包.. (类似于rpm -qa)</span><br><span class="line"></span><br><span class="line">dpkg -S &lt;表达式&gt;  </span><br><span class="line">S &#x3D; Search: 查询系统中某个文件属于哪个软件包. (类似于rpm -qf)</span><br><span class="line"></span><br><span class="line">dpkg -s &lt;软件包名&gt; </span><br><span class="line">s &#x3D; status: 查询已安装的包的详细状态信息.</span><br><span class="line"></span><br><span class="line">dpkg -L &lt;软件包名&gt;  </span><br><span class="line">L &#x3D;  Listfiles: 查询系统中已安装的软件包所安装的位置. (类似于rpm -ql)</span><br><span class="line"></span><br><span class="line">dpkg-deb --info &lt;软件包名&gt; </span><br><span class="line">--列出一个deb软件包信息. (类似于 rpm -qpi)，可以检查deb包依赖关系Depends</span><br><span class="line">（实际上执行的是dpkg-deb 程序）</span><br><span class="line"></span><br><span class="line">dpkg-deb --contents &lt;软件包名&gt; </span><br><span class="line">--列出deb软件包所包含的内容. (类似于 rpm -qpd). 与dpkg -L 不同.</span><br><span class="line"></span><br><span class="line">该命令查询的是deb包内容, dpkg -L 查询是已经安装的包信息.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dpkg -i &lt;.deb 文件名&gt; </span><br><span class="line">i &#x3D; install:手动安装软件包(这个命令并不能解决软件包之前的依赖性问题)</span><br><span class="line"></span><br><span class="line">如果在安装某一个软件包的时候遇到了软件依赖的问题,可以用apt-get -f install在解决信赖性这个问题.</span><br><span class="line"></span><br><span class="line">dpkg -r  &lt;软件包名&gt;</span><br><span class="line">r &#x3D; remove: 卸载软件包.不是完全的卸载,它的配置文件还存在.</span><br><span class="line"></span><br><span class="line">dpkg -P &lt;软件包名&gt; </span><br><span class="line">P &#x3D; Purge: 强制卸载(但是还是不能解决软件包的依赖性的问题)</span><br></pre></td></tr></table></figure>
+
+
+<p>原文链接：<a href="https://blog.csdn.net/hejinjing_tom_com/article/details/16981763/" target="_blank" rel="noopener">https://blog.csdn.net/hejinjing_tom_com/article/details/16981763/</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>CentOS</tag>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS用gcc编译时提示缺少&lt;linux\unix.c&gt;头文件</title>
-    <url>/2020/02/05/CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/</url>
+    <url>/2020/02/05/Linux%20-%20CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/</url>
     <content><![CDATA[<p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：<a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@cj508 &#x2F;home&#x2F;wk $ gcc main.c</span><br><span class="line">In file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;dirent.h:233,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;func.h:7,</span><br><span class="line">                 from main.c:1:</span><br><span class="line">&#x2F;usr&#x2F;include&#x2F;bits&#x2F;local_lim.h:38:10: fatal error: linux&#x2F;limits.h: No such file or directory</span><br><span class="line"> #include &lt;linux&#x2F;limits.h&gt;</span><br><span class="line">          ^~~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
 
