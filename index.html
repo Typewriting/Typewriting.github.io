@@ -209,6 +209,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/05/CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/05/CentOS%E4%B8%8B%E7%BC%BA%E5%B0%91Linux_limits/" class="post-title-link" itemprop="url">CentOS用gcc编译时提示缺少linux\unix.c文件</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-05 16:52:59 / 修改时间：16:49:46" itemprop="dateCreated datePublished" datetime="2020-02-05T16:52:59+08:00">2020-02-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天在阿里云(CentOS 7.3)上通过gcc命令，编译文件时突然出现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@cj508 &#x2F;home&#x2F;wk $ gcc main.c</span><br><span class="line">In file included from &#x2F;usr&#x2F;include&#x2F;bits&#x2F;posix1_lim.h:160:0,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;dirent.h:233,</span><br><span class="line">                 from &#x2F;usr&#x2F;include&#x2F;func.h:7,</span><br><span class="line">                 from main.c:1:</span><br><span class="line">&#x2F;usr&#x2F;include&#x2F;bits&#x2F;local_lim.h:38:10: fatal error: linux&#x2F;limits.h: No such file or directory</span><br><span class="line"> #include &lt;linux&#x2F;limits.h&gt;</span><br><span class="line">          ^~~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
+
+<p>意思就是致命错误：缺少linux/limits.h头文件</p>
+<p>由于阿里云是几个人合用的，都是萌新，而且都拥有root的密码，所以只要一个人瞎搞，就很容搞出问题。</p>
+<p>没办法，只能自己解决。</p>
+<p>google一下，说是缺少一个包含此头文件的包。</p>
+<p>那怎样知道是缺少哪个包呢？</p>
+<p>执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum provides *&#x2F;linux&#x2F;limits.h</span><br></pre></td></tr></table></figure>
+
+<p>就得到了很多包含此头文件的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: mirrors.aliyun.com</span><br><span class="line"> * centos-sclo-rh: mirrors.sonic.net</span><br><span class="line"> * centos-sclo-sclo: mirrors.sonic.net</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.aliyun.com</span><br><span class="line">centos-sclo-rh&#x2F;x86_64&#x2F;filelists_db                                                                                                    |  12 MB  00:00:01     </span><br><span class="line">centos-sclo-sclo&#x2F;x86_64&#x2F;filelists_db                                                                                                  | 917 kB  00:00:00     </span><br><span class="line">epel&#x2F;x86_64&#x2F;filelists_db                                                                                                              |  12 MB  00:00:00     </span><br><span class="line">kernel-debug-devel-3.10.0-1062.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : base</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.1.1.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.1.1.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.1.2.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.1.2.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.4.1.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.1.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.4.2.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.2.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.4.3.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.3.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.7.1.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.7.1.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-debug-devel-3.10.0-1062.9.1.el7.x86_64 : Development package for building kernel modules to match the debug kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.9.1.el7.x86_64.debug&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : base</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.1.1.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.1.1.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.1.2.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.1.2.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.4.1.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.1.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.4.2.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.2.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.4.3.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.4.3.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.7.1.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.7.1.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.9.1.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.9.1.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : base</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.1.1.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.1.2.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.4.1.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.4.2.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.4.3.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.7.1.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-headers-3.10.0-1062.9.1.el7.x86_64 : Header files for the Linux kernel for use by glibc</span><br><span class="line">Repo        : updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;include&#x2F;linux&#x2F;limits.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kernel-devel-3.10.0-1062.9.1.el7.x86_64 : Development package for building kernel modules to match the kernel</span><br><span class="line">Repo        : @updates</span><br><span class="line">Matched from:</span><br><span class="line">Filename    : &#x2F;usr&#x2F;src&#x2F;kernels&#x2F;3.10.0-1062.9.1.el7.x86_64&#x2F;include&#x2F;uapi&#x2F;linux&#x2F;limits.h</span><br></pre></td></tr></table></figure>
+
+<p>然后从这些包里选一个（建议新版本的），安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install kernel-headers-3.10.0-1062.4.1.el7.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>再次运行gcc，就不会提示错误了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/03/Linux%2022%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -232,10 +319,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-03 16:16:28 / 修改时间：22:35:15" itemprop="dateCreated datePublished" datetime="2020-02-03T16:16:28+08:00">2020-02-03</time>
+              <time title="创建时间：2020-02-03 16:16:28" itemprop="dateCreated datePublished" datetime="2020-02-03T16:16:28+08:00">2020-02-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-05 16:41:51" itemprop="dateModified" datetime="2020-02-05T16:41:51+08:00">2020-02-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -684,6 +777,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/01/27/Linux[5]%20-%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/27/Linux%5B5%5D%20-%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Linux(5) - 文件操作</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-27 16:52:59" itemprop="dateCreated datePublished" datetime="2020-01-27T16:52:59+08:00">2020-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 21:10:31" itemprop="dateModified" datetime="2020-02-04T21:10:31+08:00">2020-02-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="I-O多路复用与select"><a href="#I-O多路复用与select" class="headerlink" title="I/O多路复用与select"></a>I/O多路复用与select</h1><ul>
+<li>I/O多路转接模型：在这种模型下，如果请求的I/O操作阻塞，且它不是真正阻塞I/O，而是让其中的一个函数等待，在这期间，I/O还能进行其他操作。</li>
+</ul>
+<p>系统调用select：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="keyword">int</span> maxfd,</span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *readset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *writeset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *exceptionset, </span></span></span><br><span class="line"><span class="function"><span class="params">			struct timeval * timeout</span></span></span><br><span class="line"><span class="function"><span class="params">			)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	maxfd：最大的文件描述符（其值应该为最大的文件描述符字 + 1） readset：内核读操作的描述符字集合 (传入传出参数)</span></span><br><span class="line"><span class="comment">	writeset：内核写操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	exceptionset：内核异常操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	timeout：等待描述符就绪需要多少时间。NULL=永远等下去，固定值=等待固定时间，0=不等待，检查描述字之后立即返回。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	返回值: 为就绪描述字的正数目，0——超时，-1——出错</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	maxfd为什么是最大描述符加1呢？</span></span><br><span class="line"><span class="comment">	当传入fdmax的时候，select会监听0~fdmax-1的文件描述符</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fdset实际上是一个文件描述符的位图，采用数组的形式来存储。下面是一个简化版本的实现方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的成员是一个长整型的结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">int</span> __fd_mask; </span><br><span class="line"><span class="comment">//将字节转化为位 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NFDBITS (8 * (int) sizeof (__fd_mask))</span></span><br><span class="line"><span class="comment">//位图-判断是否存在文件描述符d </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FD_MASK(d) ((__fd_mask) (1UL &lt;&lt; ((d) % __NFDBITS))) </span></span><br><span class="line"><span class="comment">//select和pselect的fd_set结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span> </span><br><span class="line"><span class="comment">//成员就是一个长整型的数组，用来实现位图 </span></span><br><span class="line">__fd_mask __fds_bits[__FD_SETSIZE / __NFDBITS]; </span><br><span class="line">&#125; fd_set; </span><br><span class="line"><span class="comment">// fd_set里面文件描述符的数量，可以使用ulimit -n进行查看 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_SETSIZE __FD_SETSIZE</span></span><br></pre></td></tr></table></figure>
+
+<p>有关文件描述符集合的操作通过以下四个宏来完成：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;         <span class="comment">//将fdset所指向的集合初始化为空 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd添加到fdset所指向的集合中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd从fdset所指向的集合中移除</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;<span class="comment">//判断一个fd是否是fdset所指向集合中的成员</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/01/26/Linux[1]%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -908,7 +1086,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -921,7 +1099,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
