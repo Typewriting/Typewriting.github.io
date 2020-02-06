@@ -209,6 +209,156 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/06/Linux%20[23]%20-%20%E8%BF%9B%E7%A8%8B%E6%B1%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/06/Linux%20%5B23%5D%20-%20%E8%BF%9B%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">Linux(22) - 网络编程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-06 17:34:28 / 修改时间：22:44:44" itemprop="dateCreated datePublished" datetime="2020-02-06T17:34:28+08:00">2020-02-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="进程池工作流程"><a href="#进程池工作流程" class="headerlink" title="进程池工作流程"></a>进程池工作流程</h1><p>首先我们通过父进程创建了很多个子进程，每个子进程与父进程直接都有一条全双工的管道，父进程是我们的代理，当1号客户端请求连接下载文件时，父进程接收到请求，产生 new_fd ，并把 new_fd 发送给非忙碌的子进程 a ，由子进程 a 将文件传输给 1号客户端。这时2号客户端请求下载文件，父进程接收请求得到new_fd, 由于这时子进程 a忙碌，所以将new_fd 发送给子进程 b ，由 子进程 b 负责给 2 号客户端下载文件。</p>
+<h1 id="主要数据结构"><a href="#主要数据结构" class="headerlink" title="主要数据结构"></a>主要数据结构</h1><p>父进程管理子进程所使用的数据结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="keyword">pid_t</span> pid;   <span class="comment">//子进程的 pid</span></span><br><span class="line"><span class="keyword">int</span> fd;      <span class="comment">// 管道的一端</span></span><br><span class="line">short busy;  <span class="comment">// 代表子进程是否忙碌， 0 代表非忙碌， 1 代表忙碌</span></span><br><span class="line">&#125;process_data;</span><br></pre></td></tr></table></figure>
+<p>创建多少个子进程，我们就用多少个对应的结构体管理子进程。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/06/C%E8%AF%AD%E8%A8%80%20-%20malloc%E5%92%8Ccalloc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/06/C%E8%AF%AD%E8%A8%80%20-%20malloc%E5%92%8Ccalloc/" class="post-title-link" itemprop="url">C语言 - malloc和calloc</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-06 15:36:28 / 修改时间：15:36:37" itemprop="dateCreated datePublished" datetime="2020-02-06T15:36:28+08:00">2020-02-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#malloc和calloc </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/06/C%E8%AF%AD%E8%A8%80%20-%20malloc%E5%92%8Ccalloc/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/05/Linux%20-%20CentOS(rpm%E7%AE%A1%E7%90%86)%E5%92%8Cubuntu(dpkg%E7%AE%A1%E7%90%86)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -363,90 +513,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/03/Linux%2022%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/110.gif">
-      <meta itemprop="name" content="wk">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Horizon">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/03/Linux%2022%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">Linux(22) - 网络编程</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-03 16:16:28" itemprop="dateCreated datePublished" datetime="2020-02-03T16:16:28+08:00">2020-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-05 16:41:51" itemprop="dateModified" datetime="2020-02-05T16:41:51+08:00">2020-02-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概念相关"><a href="#概念相关" class="headerlink" title="概念相关"></a>概念相关</h1><h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><h3 id="socket类型"><a href="#socket类型" class="headerlink" title="socket类型"></a>socket类型</h3><p>1)流式socket(SOCK_STREAM) -&gt;用于TCP 通信</p>
-<p>2)数据报socket(SOCK_DGRAM) -&gt;用于UDP 通信
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/03/Linux%2022%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/03/Linux%20[22]%20-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,10 +536,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-03 16:16:28 / 修改时间：19:57:14" itemprop="dateCreated datePublished" datetime="2020-02-03T16:16:28+08:00">2020-02-03</time>
+              <time title="创建时间：2020-02-03 16:16:28" itemprop="dateCreated datePublished" datetime="2020-02-03T16:16:28+08:00">2020-02-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-06 22:44:44" itemprop="dateModified" datetime="2020-02-06T22:44:44+08:00">2020-02-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -497,7 +569,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="概念相关"><a href="#概念相关" class="headerlink" title="概念相关"></a>概念相关</h1><h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><h3 id="socket类型"><a href="#socket类型" class="headerlink" title="socket类型"></a>socket类型</h3><p>1)流式socket(SOCK_STREAM) -&gt;用于TCP 通信</p>
+          <h1 id="概念相关"><a href="#概念相关" class="headerlink" title="概念相关"></a>概念相关</h1><h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><h3 id="fd是什么"><a href="#fd是什么" class="headerlink" title="fd是什么"></a>fd是什么</h3><p>fd全称是file descriptor,是进程独有的文件描述符表的索引。</p>
+<h3 id="socket类型"><a href="#socket类型" class="headerlink" title="socket类型"></a>socket类型</h3><p>1)流式socket(SOCK_STREAM) -&gt;用于TCP 通信</p>
 <p>2)数据报socket(SOCK_DGRAM) -&gt;用于UDP 通信
           <!--noindex-->
             <div class="post-button">
@@ -875,7 +948,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 21:10:31" itemprop="dateModified" datetime="2020-02-04T21:10:31+08:00">2020-02-04</time>
+                <time title="修改时间：2020-02-06 22:58:39" itemprop="dateModified" datetime="2020-02-06T22:58:39+08:00">2020-02-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -900,100 +973,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="I-O多路复用与select"><a href="#I-O多路复用与select" class="headerlink" title="I/O多路复用与select"></a>I/O多路复用与select</h1><ul>
+          <h1 id="基于文件描述符的文件操作"><a href="#基于文件描述符的文件操作" class="headerlink" title="基于文件描述符的文件操作"></a>基于文件描述符的文件操作</h1><p>文件描述符是一个非0的整数。从原理上来说，每次打开文件的时候，进程地址空间的内核部分里面会维护一个已经打开的文件的数组，文件描述符的作用就是这个数组的索引。因此，文件描述符可以实现进程和打开文件之间的交互。</p>
+<h2 id="文件的创建和打开"><a href="#文件的创建和打开" class="headerlink" title="文件的创建和打开"></a>文件的创建和打开</h2><ul>
+<li>使用open函数可以打开或者创建并打开一个文件，使用creat函数可以创建一个文件。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt; //头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>; <span class="comment">//文件名 打开方式 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;<span class="comment">//文件名 打开方式 权限 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>; <span class="comment">//文件名 权限 </span></span><br><span class="line"><span class="comment">//creat现在已经不常用了，它等价于 </span></span><br><span class="line"><span class="built_in">open</span>(pathname,O_CREAT|O_TRUNC|O_WRONLY,mode);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>open函数的返回值：执行成功时，open函数返回一个文件描述符，表示已经打开的文件；执行失败是，open函数返回-1，并设置相应的errno。</p>
+</li>
+<li><p>flags和mode都是一组掩码的合成值，flags表示打开或创建的方式，mode表示文件的访问权限。</p>
+</li>
+<li><p>flags的可选项有：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>掩码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>O_RDONLY</td>
+<td>以只读的方式打开</td>
+</tr>
+<tr>
+<td>O_WRONLY</td>
+<td>以只写的方式打开</td>
+</tr>
+<tr>
+<td>O_RDWR</td>
+<td>以读写的方式打开</td>
+</tr>
+<tr>
+<td>O_CREAT</td>
+<td>如果文件不存在，则创建文件</td>
+</tr>
+<tr>
+<td>O_EXCL</td>
+<td>仅与O_CREAT连用，如果文件已存在，则open失败</td>
+</tr>
+<tr>
+<td>O_TRUNC</td>
+<td>如果文件存在，将文件的长度截至0</td>
+</tr>
+<tr>
+<td>O_APPEND</td>
+<td>已追加的方式打开文件，每次调用write时，文件指针自动先移到文件尾，用于个文件的情况。</td>
+</tr>
+<tr>
+<td>O_NONBLOCK</td>
+<td>非阻塞方式打开，无论有无数据读取或等待，都会立即返回进程之中</td>
+</tr>
+<tr>
+<td>O_NODELAY</td>
+<td>非阻塞方式打开</td>
+</tr>
+<tr>
+<td>O_SYNC</td>
+<td>同步打开文件，只有在数据被真正写入物理设备设备后才返回</td>
+</tr>
+</tbody></table>
+<ul>
+<li>mode通常采用直接赋数值的形式，例如：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"file"</span>,O_RDWR | O_CREAT,<span class="number">0755</span>); <span class="comment">//表示给755的权限 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">-1</span> == fd) </span><br><span class="line">	&#123; </span><br><span class="line">		perror(<span class="string">"open failed!\n"</span>); </span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>); </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="文件的关闭"><a href="#文件的关闭" class="headerlink" title="文件的关闭"></a>文件的关闭</h2><p>使用完文件以后，要记得使用close来关闭文件。一旦调用close，则该进程对文件所加的锁全都被释放，并且使文件的打开引用计数减1，只有文件的打开引用计数变为0以后，文件才会被真正的关闭。用ulimit -a命令可以查看单个进程能同时打开的文件的上限。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>; <span class="comment">//fd表示文件描述符,是先前由open或creat创建文件时的返回值。</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="I-O多路复用与select"><a href="#I-O多路复用与select" class="headerlink" title="I/O多路复用与select"></a>I/O多路复用与select</h1><ul>
 <li>I/O多路转接模型：在这种模型下，如果请求的I/O操作阻塞，且它不是真正阻塞I/O，而是让其中的一个函数等待，在这期间，I/O还能进行其他操作。</li>
 </ul>
 <p>系统调用select：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="keyword">int</span> maxfd,</span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *readset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *writeset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *exceptionset, </span></span></span><br><span class="line"><span class="function"><span class="params">			struct timeval * timeout</span></span></span><br><span class="line"><span class="function"><span class="params">			)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	maxfd：最大的文件描述符（其值应该为最大的文件描述符字 + 1） readset：内核读操作的描述符字集合 (传入传出参数)</span></span><br><span class="line"><span class="comment">	writeset：内核写操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	exceptionset：内核异常操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	timeout：等待描述符就绪需要多少时间。NULL=永远等下去，固定值=等待固定时间，0=不等待，检查描述字之后立即返回。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	返回值: 为就绪描述字的正数目，0——超时，-1——出错</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	maxfd为什么是最大描述符加1呢？</span></span><br><span class="line"><span class="comment">	当传入fdmax的时候，select会监听0~fdmax-1的文件描述符</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fdset实际上是一个文件描述符的位图，采用数组的形式来存储。下面是一个简化版本的实现方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的成员是一个长整型的结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">int</span> __fd_mask; </span><br><span class="line"><span class="comment">//将字节转化为位 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NFDBITS (8 * (int) sizeof (__fd_mask))</span></span><br><span class="line"><span class="comment">//位图-判断是否存在文件描述符d </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FD_MASK(d) ((__fd_mask) (1UL &lt;&lt; ((d) % __NFDBITS))) </span></span><br><span class="line"><span class="comment">//select和pselect的fd_set结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span> </span><br><span class="line"><span class="comment">//成员就是一个长整型的数组，用来实现位图 </span></span><br><span class="line">__fd_mask __fds_bits[__FD_SETSIZE / __NFDBITS]; </span><br><span class="line">&#125; fd_set; </span><br><span class="line"><span class="comment">// fd_set里面文件描述符的数量，可以使用ulimit -n进行查看 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_SETSIZE __FD_SETSIZE</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="keyword">int</span> maxfd,</span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *readset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *writeset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *exceptionset, </span></span></span><br><span class="line"><span class="function"><span class="params">			struct timeval * timeout</span></span></span><br><span class="line"><span class="function"><span class="params">			)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	maxfd：最大的文件描述符（其值应该为最大的文件描述符字 + 1） </span></span><br><span class="line"><span class="comment">	readset：内核读操作的描述符字集合 (传入传出参数)</span></span><br><span class="line"><span class="comment">	writeset：内核写操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	exceptionset：内核异常操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	timeout：等待描述符就绪需要多少时间。NULL=永远等下去，固定值=等待固定时间，0=不等待，检查描述字之后立即返回。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	返回值: 为就绪描述字的正数目，0——超时，-1——出错</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	maxfd为什么是最大描述符加1呢？</span></span><br><span class="line"><span class="comment">	当传入fdmax的时候，select会监听0~fdmax-1的文件描述符</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fdset实际上是一个文件描述符的位图，采用数组的形式来存储。下面是一个简化版本的实现方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的成员是一个长整型的结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">int</span> __fd_mask; </span><br><span class="line"><span class="comment">//将字节转化为位 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NFDBITS (8 * (int) sizeof (__fd_mask))</span></span><br><span class="line"><span class="comment">//位图-判断是否存在文件描述符d </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FD_MASK(d) ((__fd_mask) (1UL &lt;&lt; ((d) % __NFDBITS))) </span></span><br><span class="line"><span class="comment">//select和pselect的fd_set结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span> </span><br><span class="line"><span class="comment">//成员就是一个长整型的数组，用来实现位图 </span></span><br><span class="line">__fd_mask __fds_bits[__FD_SETSIZE / __NFDBITS]; </span><br><span class="line">&#125; fd_set; </span><br><span class="line"><span class="comment">// fd_set里面文件描述符的数量，可以使用ulimit -n进行查看 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_SETSIZE __FD_SE	TSIZE</span></span><br></pre></td></tr></table></figure>
 
 <p>有关文件描述符集合的操作通过以下四个宏来完成：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;         <span class="comment">//将fdset所指向的集合初始化为空 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd添加到fdset所指向的集合中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd从fdset所指向的集合中移除</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;<span class="comment">//判断一个fd是否是fdset所指向集合中的成员</span></span><br></pre></td></tr></table></figure>
 
+<p>若只监控读操作：<br>readset 是传入传出参数，它的作用是：<br>select()操作执行前，先通过FD_SET()将要监控的文件描述符添加到一个集合中，select()执行时，这个集合由readset传入内核，然后将rdset所指向的集合清空，select执行完毕，将该集合中所有可读的描述符再组成一个集合，写入到readset中。<br>然后通过FD_ISSET()就可判断所给的fd是否在新的readset中，及是否可读。</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/01/26/Linux[1]%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/110.gif">
-      <meta itemprop="name" content="wk">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Horizon">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux(1) - 常用命令</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-26 16:52:59" itemprop="dateCreated datePublished" datetime="2020-01-26T16:52:59+08:00">2020-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-03 18:10:38" itemprop="dateModified" datetime="2020-02-03T18:10:38+08:00">2020-02-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1080,20 +1142,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
