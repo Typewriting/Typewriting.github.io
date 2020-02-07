@@ -7,7 +7,11 @@
 <h1 id="主要数据结构"><a href="#主要数据结构" class="headerlink" title="主要数据结构"></a>主要数据结构</h1><p>父进程管理子进程所使用的数据结构</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="keyword">pid_t</span> pid;   <span class="comment">//子进程的 pid</span></span><br><span class="line"><span class="keyword">int</span> fd;      <span class="comment">// 管道的一端</span></span><br><span class="line">short busy;  <span class="comment">// 代表子进程是否忙碌， 0 代表非忙碌， 1 代表忙碌</span></span><br><span class="line">&#125;process_data;</span><br></pre></td></tr></table></figure>
 <p>创建多少个子进程，我们就用多少个对应的结构体管理子进程。</p>
-]]></content>
+<h1 id="进程间传递文件描述符"><a href="#进程间传递文件描述符" class="headerlink" title="进程间传递文件描述符"></a>进程间传递文件描述符</h1><p>使用sendmsg接口，传递内核控制信息：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">sendmsg</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct msghdr *msg, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>用法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//先定义一个结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msgsdr</span> <span class="title">msg</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Sendmsg关键是初始化 msghdr 结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span> *msg_name; <span class="comment">/* optional address */</span>                 <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">socklen_t</span> msg_namelen; <span class="comment">/* size of address */</span>           <span class="comment">//没用</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">msg_iov</span>;</span> <span class="comment">/* scatter/gather array */</span>      <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">size_t</span> msg_iovlen; <span class="comment">/* # elements in msg_iov */</span>         <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">void</span> *msg_control; <span class="comment">/* ancillary data, see below */</span>     <span class="comment">//关键，即下面的cmsghdr 结构体地址</span></span><br><span class="line">    <span class="keyword">size_t</span> msg_controllen; <span class="comment">/* ancillary data buffer len */</span> <span class="comment">//cmsghdr 结构体的长度</span></span><br><span class="line">    <span class="keyword">int</span> msg_flags; <span class="comment">/* flags (unused) */</span>                    <span class="comment">//没用</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -405,8 +409,8 @@
   <entry>
     <title>Linux(5) - 文件操作</title>
     <url>/2020/01/27/Linux%5B5%5D%20-%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="基于文件描述符的文件操作"><a href="#基于文件描述符的文件操作" class="headerlink" title="基于文件描述符的文件操作"></a>基于文件描述符的文件操作</h1><p>文件描述符是一个非0的整数。从原理上来说，每次打开文件的时候，进程地址空间的内核部分里面会维护一个已经打开的文件的数组，文件描述符的作用就是这个数组的索引。因此，文件描述符可以实现进程和打开文件之间的交互。</p>
-<h2 id="文件的创建和打开"><a href="#文件的创建和打开" class="headerlink" title="文件的创建和打开"></a>文件的创建和打开</h2><ul>
+    <content><![CDATA[<h1 id="基于文件描述符的文件操作"><a href="#基于文件描述符的文件操作" class="headerlink" title="基于文件描述符的文件操作"></a>基于文件描述符的文件操作</h1><p>文件描述符是一个非0的整数。从原理上来说，每次打开文件的时候，进程地址空间的内核部分里面会维护一个已经打开的文件的数组，文件描述符的作用就是这个数组的索引。因此，文件描述符可以实现进程和打开文件之间的交互。<a id="more"></a></p>
+<h2 id="文件的创建、打开、和关闭"><a href="#文件的创建、打开、和关闭" class="headerlink" title="文件的创建、打开、和关闭"></a>文件的创建、打开、和关闭</h2><ul>
 <li>使用open函数可以打开或者创建并打开一个文件，使用creat函数可以创建一个文件。</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt; //头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>; <span class="comment">//文件名 打开方式 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;<span class="comment">//文件名 打开方式 权限 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>; <span class="comment">//文件名 权限 </span></span><br><span class="line"><span class="comment">//creat现在已经不常用了，它等价于 </span></span><br><span class="line"><span class="built_in">open</span>(pathname,O_CREAT|O_TRUNC|O_WRONLY,mode);</span><br></pre></td></tr></table></figure>
@@ -468,13 +472,42 @@
 </tr>
 </tbody></table>
 <ul>
-<li>mode通常采用直接赋数值的形式，例如：<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"file"</span>,O_RDWR | O_CREAT,<span class="number">0755</span>); <span class="comment">//表示给755的权限 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">-1</span> == fd) </span><br><span class="line">	&#123; </span><br><span class="line">		perror(<span class="string">"open failed!\n"</span>); </span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>); </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
+<li><p>mode通常采用直接赋数值的形式，例如：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"file"</span>,O_RDWR | O_CREAT,<span class="number">0755</span>); <span class="comment">//表示给755的权限 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">-1</span> == fd) </span><br><span class="line">	&#123; </span><br><span class="line">		perror(<span class="string">"open failed!\n"</span>); </span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>); </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用完文件以后，要记得使用close来关闭文件。一旦调用close，则该进程对文件所加的锁全都被释放，并且使文件的打开引用计数减1，只有文件的打开引用计数变为0以后，文件才会被真正的关闭。用ulimit -a命令可以查看单个进程能同时打开的文件的上限。</p>
 </li>
 </ul>
-<h2 id="文件的关闭"><a href="#文件的关闭" class="headerlink" title="文件的关闭"></a>文件的关闭</h2><p>使用完文件以后，要记得使用close来关闭文件。一旦调用close，则该进程对文件所加的锁全都被释放，并且使文件的打开引用计数减1，只有文件的打开引用计数变为0以后，文件才会被真正的关闭。用ulimit -a命令可以查看单个进程能同时打开的文件的上限。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>; <span class="comment">//fd表示文件描述符,是先前由open或creat创建文件时的返回值。</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="文件的读写"><a href="#文件的读写" class="headerlink" title="文件的读写"></a>文件的读写</h2><ul>
+<li>使用read和write来读写文件，它们统称为不带缓冲的IO</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;<span class="comment">//文件描述符 缓冲区 长度 s</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于read和write函数，出错返回-1，读取完了之后，返回0，其他情况返回读写的个数。</li>
+</ul>
+<h2 id="改变文件的大小"><a href="#改变文件的大小" class="headerlink" title="改变文件的大小"></a>改变文件的大小</h2><ul>
+<li>使用ftruncate函数可以文件大小</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ftruncate</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> length)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用mmap函数经常配合函数ftruncate来扩大文件大小。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//示例 #include &lt;func.h&gt; </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123; ARGS_CHECK(argc,<span class="number">2</span>); <span class="keyword">int</span> fd = <span class="built_in">open</span>(argv[<span class="number">1</span>],O_RDWR); ERROR_CHECK(fd,<span class="number">-1</span>,<span class="string">"open"</span>); <span class="built_in">printf</span>(<span class="string">"fd = %d\n"</span>,fd); ftruncate(fd,<span class="number">5</span>) <span class="keyword">char</span> *p; p = (<span class="keyword">char</span> *)mmap(<span class="literal">NULL</span>,<span class="number">5</span>,PROT_READ|PROT_WRITE,MAP_SHARED,fd,<span class="number">0</span>); ERROR_CHECK(p,(<span class="keyword">char</span> *)<span class="number">-1</span>,<span class="string">"mmap"</span>); p[<span class="number">5</span>] = <span class="number">0</span>; <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,p); p[<span class="number">0</span>] = <span class="string">'H'</span>; munmap(p,<span class="number">5</span>); <span class="built_in">close</span>(fd);</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件描述符的复制"><a href="#文件描述符的复制" class="headerlink" title="文件描述符的复制"></a>文件描述符的复制</h2><ul>
+<li>系统调用函数dup和dup2可以实现文件描述符的复制</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup</span><span class="params">(<span class="keyword">int</span> oldfd)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup2</span><span class="params">(<span class="keyword">int</span> oldfd, <span class="keyword">int</span> newfd)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>dup返回一个新的文件描述符（是自动分配的，数值是没有使用的文件描述符的最小编号）。这个新的描述符是旧文件描述符的拷贝。这意味着两个描述符共享同一个数据结构。</p>
+</li>
+<li><p>dup2允许调用者用一个有效描述符(oldfd)和目标描述符(newfd)。函数成功返回时，目标描述符将变成旧描述符的复制品，此时两个文件描述符现在都指向oldfd指向的文件（执行完成以后，如果newfd已经打开了文件，该文件将会被关闭）。</p>
+</li>
+</ul>
 <h1 id="I-O多路复用与select"><a href="#I-O多路复用与select" class="headerlink" title="I/O多路复用与select"></a>I/O多路复用与select</h1><ul>
 <li>I/O多路转接模型：在这种模型下，如果请求的I/O操作阻塞，且它不是真正阻塞I/O，而是让其中的一个函数等待，在这期间，I/O还能进行其他操作。</li>
 </ul>

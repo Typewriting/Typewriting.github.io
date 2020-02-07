@@ -232,10 +232,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-06 17:34:28 / 修改时间：22:44:44" itemprop="dateCreated datePublished" datetime="2020-02-06T17:34:28+08:00">2020-02-06</time>
+              <time title="创建时间：2020-02-06 17:34:28" itemprop="dateCreated datePublished" datetime="2020-02-06T17:34:28+08:00">2020-02-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-07 00:18:06" itemprop="dateModified" datetime="2020-02-07T00:18:06+08:00">2020-02-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -263,7 +269,11 @@
 <h1 id="主要数据结构"><a href="#主要数据结构" class="headerlink" title="主要数据结构"></a>主要数据结构</h1><p>父进程管理子进程所使用的数据结构</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="keyword">pid_t</span> pid;   <span class="comment">//子进程的 pid</span></span><br><span class="line"><span class="keyword">int</span> fd;      <span class="comment">// 管道的一端</span></span><br><span class="line">short busy;  <span class="comment">// 代表子进程是否忙碌， 0 代表非忙碌， 1 代表忙碌</span></span><br><span class="line">&#125;process_data;</span><br></pre></td></tr></table></figure>
 <p>创建多少个子进程，我们就用多少个对应的结构体管理子进程。</p>
+<h1 id="进程间传递文件描述符"><a href="#进程间传递文件描述符" class="headerlink" title="进程间传递文件描述符"></a>进程间传递文件描述符</h1><p>使用sendmsg接口，传递内核控制信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">sendmsg</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct msghdr *msg, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
 
+<p>用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先定义一个结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msgsdr</span> <span class="title">msg</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Sendmsg关键是初始化 msghdr 结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span> *msg_name; <span class="comment">/* optional address */</span>                 <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">socklen_t</span> msg_namelen; <span class="comment">/* size of address */</span>           <span class="comment">//没用</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">msg_iov</span>;</span> <span class="comment">/* scatter/gather array */</span>      <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">size_t</span> msg_iovlen; <span class="comment">/* # elements in msg_iov */</span>         <span class="comment">//没用</span></span><br><span class="line">    <span class="keyword">void</span> *msg_control; <span class="comment">/* ancillary data, see below */</span>     <span class="comment">//关键，即下面的cmsghdr 结构体地址</span></span><br><span class="line">    <span class="keyword">size_t</span> msg_controllen; <span class="comment">/* ancillary data buffer len */</span> <span class="comment">//cmsghdr 结构体的长度</span></span><br><span class="line">    <span class="keyword">int</span> msg_flags; <span class="comment">/* flags (unused) */</span>                    <span class="comment">//没用</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -948,7 +958,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-06 22:58:39" itemprop="dateModified" datetime="2020-02-06T22:58:39+08:00">2020-02-06</time>
+                <time title="修改时间：2020-02-07 11:12:20" itemprop="dateModified" datetime="2020-02-07T11:12:20+08:00">2020-02-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -973,89 +983,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="基于文件描述符的文件操作"><a href="#基于文件描述符的文件操作" class="headerlink" title="基于文件描述符的文件操作"></a>基于文件描述符的文件操作</h1><p>文件描述符是一个非0的整数。从原理上来说，每次打开文件的时候，进程地址空间的内核部分里面会维护一个已经打开的文件的数组，文件描述符的作用就是这个数组的索引。因此，文件描述符可以实现进程和打开文件之间的交互。</p>
-<h2 id="文件的创建和打开"><a href="#文件的创建和打开" class="headerlink" title="文件的创建和打开"></a>文件的创建和打开</h2><ul>
-<li>使用open函数可以打开或者创建并打开一个文件，使用creat函数可以创建一个文件。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt; //头文件 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>; <span class="comment">//文件名 打开方式 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;<span class="comment">//文件名 打开方式 权限 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>; <span class="comment">//文件名 权限 </span></span><br><span class="line"><span class="comment">//creat现在已经不常用了，它等价于 </span></span><br><span class="line"><span class="built_in">open</span>(pathname,O_CREAT|O_TRUNC|O_WRONLY,mode);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>open函数的返回值：执行成功时，open函数返回一个文件描述符，表示已经打开的文件；执行失败是，open函数返回-1，并设置相应的errno。</p>
-</li>
-<li><p>flags和mode都是一组掩码的合成值，flags表示打开或创建的方式，mode表示文件的访问权限。</p>
-</li>
-<li><p>flags的可选项有：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>掩码</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>O_RDONLY</td>
-<td>以只读的方式打开</td>
-</tr>
-<tr>
-<td>O_WRONLY</td>
-<td>以只写的方式打开</td>
-</tr>
-<tr>
-<td>O_RDWR</td>
-<td>以读写的方式打开</td>
-</tr>
-<tr>
-<td>O_CREAT</td>
-<td>如果文件不存在，则创建文件</td>
-</tr>
-<tr>
-<td>O_EXCL</td>
-<td>仅与O_CREAT连用，如果文件已存在，则open失败</td>
-</tr>
-<tr>
-<td>O_TRUNC</td>
-<td>如果文件存在，将文件的长度截至0</td>
-</tr>
-<tr>
-<td>O_APPEND</td>
-<td>已追加的方式打开文件，每次调用write时，文件指针自动先移到文件尾，用于个文件的情况。</td>
-</tr>
-<tr>
-<td>O_NONBLOCK</td>
-<td>非阻塞方式打开，无论有无数据读取或等待，都会立即返回进程之中</td>
-</tr>
-<tr>
-<td>O_NODELAY</td>
-<td>非阻塞方式打开</td>
-</tr>
-<tr>
-<td>O_SYNC</td>
-<td>同步打开文件，只有在数据被真正写入物理设备设备后才返回</td>
-</tr>
-</tbody></table>
-<ul>
-<li>mode通常采用直接赋数值的形式，例如：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"file"</span>,O_RDWR | O_CREAT,<span class="number">0755</span>); <span class="comment">//表示给755的权限 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">-1</span> == fd) </span><br><span class="line">	&#123; </span><br><span class="line">		perror(<span class="string">"open failed!\n"</span>); </span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>); </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="文件的关闭"><a href="#文件的关闭" class="headerlink" title="文件的关闭"></a>文件的关闭</h2><p>使用完文件以后，要记得使用close来关闭文件。一旦调用close，则该进程对文件所加的锁全都被释放，并且使文件的打开引用计数减1，只有文件的打开引用计数变为0以后，文件才会被真正的关闭。用ulimit -a命令可以查看单个进程能同时打开的文件的上限。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>; <span class="comment">//fd表示文件描述符,是先前由open或creat创建文件时的返回值。</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="I-O多路复用与select"><a href="#I-O多路复用与select" class="headerlink" title="I/O多路复用与select"></a>I/O多路复用与select</h1><ul>
-<li>I/O多路转接模型：在这种模型下，如果请求的I/O操作阻塞，且它不是真正阻塞I/O，而是让其中的一个函数等待，在这期间，I/O还能进行其他操作。</li>
-</ul>
-<p>系统调用select：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="keyword">int</span> maxfd,</span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *readset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *writeset, </span></span></span><br><span class="line"><span class="function"><span class="params">			fd_set *exceptionset, </span></span></span><br><span class="line"><span class="function"><span class="params">			struct timeval * timeout</span></span></span><br><span class="line"><span class="function"><span class="params">			)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	maxfd：最大的文件描述符（其值应该为最大的文件描述符字 + 1） </span></span><br><span class="line"><span class="comment">	readset：内核读操作的描述符字集合 (传入传出参数)</span></span><br><span class="line"><span class="comment">	writeset：内核写操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	exceptionset：内核异常操作的描述符字集合 </span></span><br><span class="line"><span class="comment">	timeout：等待描述符就绪需要多少时间。NULL=永远等下去，固定值=等待固定时间，0=不等待，检查描述字之后立即返回。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	返回值: 为就绪描述字的正数目，0——超时，-1——出错</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	maxfd为什么是最大描述符加1呢？</span></span><br><span class="line"><span class="comment">	当传入fdmax的时候，select会监听0~fdmax-1的文件描述符</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fdset实际上是一个文件描述符的位图，采用数组的形式来存储。下面是一个简化版本的实现方法:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的成员是一个长整型的结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">int</span> __fd_mask; </span><br><span class="line"><span class="comment">//将字节转化为位 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __NFDBITS (8 * (int) sizeof (__fd_mask))</span></span><br><span class="line"><span class="comment">//位图-判断是否存在文件描述符d </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FD_MASK(d) ((__fd_mask) (1UL &lt;&lt; ((d) % __NFDBITS))) </span></span><br><span class="line"><span class="comment">//select和pselect的fd_set结构体 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span> </span><br><span class="line"><span class="comment">//成员就是一个长整型的数组，用来实现位图 </span></span><br><span class="line">__fd_mask __fds_bits[__FD_SETSIZE / __NFDBITS]; </span><br><span class="line">&#125; fd_set; </span><br><span class="line"><span class="comment">// fd_set里面文件描述符的数量，可以使用ulimit -n进行查看 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FD_SETSIZE __FD_SE	TSIZE</span></span><br></pre></td></tr></table></figure>
-
-<p>有关文件描述符集合的操作通过以下四个宏来完成：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;         <span class="comment">//将fdset所指向的集合初始化为空 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd添加到fdset所指向的集合中</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;  <span class="comment">//将文件描述符fd从fdset所指向的集合中移除</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;<span class="comment">//判断一个fd是否是fdset所指向集合中的成员</span></span><br></pre></td></tr></table></figure>
-
-<p>若只监控读操作：<br>readset 是传入传出参数，它的作用是：<br>select()操作执行前，先通过FD_SET()将要监控的文件描述符添加到一个集合中，select()执行时，这个集合由readset传入内核，然后将rdset所指向的集合清空，select执行完毕，将该集合中所有可读的描述符再组成一个集合，写入到readset中。<br>然后通过FD_ISSET()就可判断所给的fd是否在新的readset中，及是否可读。</p>
-
+          <h1 id="基于文件描述符的文件操作"><a href="#基于文件描述符的文件操作" class="headerlink" title="基于文件描述符的文件操作"></a>基于文件描述符的文件操作</h1><p>文件描述符是一个非0的整数。从原理上来说，每次打开文件的时候，进程地址空间的内核部分里面会维护一个已经打开的文件的数组，文件描述符的作用就是这个数组的索引。因此，文件描述符可以实现进程和打开文件之间的交互。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/27/Linux%5B5%5D%20-%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
