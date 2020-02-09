@@ -282,12 +282,15 @@
 <p>udp_client.c:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;func.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">    ARGS_CHECK(argc, <span class="number">3</span>);  <span class="comment">// 2个参数分别为ip和端口号    </span></span><br><span class="line">    <span class="keyword">int</span> socketFd;</span><br><span class="line">    socketFd = socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);                                                                                                                                            </span><br><span class="line">    ERROR_CHECK(socketFd, <span class="number">-1</span>, <span class="string">"socket"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"socketFd = %d\n"</span>, socketFd);    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">ser</span>;</span></span><br><span class="line">    bzero(&amp;ser, <span class="keyword">sizeof</span>(ser));</span><br><span class="line">    ser.sin_family = AF_INET;</span><br><span class="line">    ser.sin_port = htons(atoi(argv[<span class="number">2</span>]));</span><br><span class="line">    ser.sin_addr.s_addr = inet_addr(argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">1000</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *message = <span class="string">"Hi, I am client."</span>;</span><br><span class="line">    sendto(socketFd, message, <span class="built_in">strlen</span>(message), <span class="number">0</span>, (struct sockaddr*)&amp;ser, <span class="keyword">sizeof</span>(ser));</span><br><span class="line">    recvfrom(socketFd, buf, <span class="keyword">sizeof</span>(buf), <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);<span class="comment">//知道是从服务器接收，可以置为NULL,即从内核中读取</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, buf);</span><br><span class="line">    <span class="built_in">close</span>(socketFd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="setsockoptt"><a href="#setsockoptt" class="headerlink" title="setsockoptt"></a>setsockoptt</h2><ul>
+<h2 id="setsockopt"><a href="#setsockopt" class="headerlink" title="setsockopt"></a>setsockopt</h2><ul>
 <li>作用: 设置socket属性。</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval, <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	sockfd：标识一个套接口的描述字</span></span><br><span class="line"><span class="comment">	level：选项定义的层次；支持SOL_SOCKET、IPPROTO_TCP、IPPROTO_IP 和IPPROTO_IPV6</span></span><br><span class="line"><span class="comment">	optname：需设置的选项</span></span><br><span class="line"><span class="comment">	optval：指针，指向存放选项值的缓冲区</span></span><br><span class="line"><span class="comment">	optlen：optval 缓冲区长度</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval, <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	sockfd：标识一个套接口的描述字</span></span><br><span class="line"><span class="comment">	level：选项定义的层次；支持</span></span><br><span class="line"><span class="comment">	optname：需设置的选项</span></span><br><span class="line"><span class="comment">	optval：指针，指向存放选项值的缓冲区</span></span><br><span class="line"><span class="comment">	optlen：optval 缓冲区长度</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
-<p>选项：<br>SO_REUSEADDR:|允许重用本地地址和端口</p>
+<p>level有四个层次，分别是SOL_SOCKET、IPPROTO_TCP、IPPROTO_IP 和IPPROTO_IPV6。<br>不同层次下optname：</p>
+<ul>
+<li>level: SOL_SOCKET</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -375,6 +378,62 @@
 <td>SO_BSDCOMPAT</td>
 <td>与BSD</td>
 <td>系统兼容</td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li>level: IPPROTO_IP</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IP_HDRINCL</td>
+<td>在数据包中包含IP首部</td>
+<td>int</td>
+</tr>
+<tr>
+<td>IP_OPTINOS</td>
+<td>IP首部选项</td>
+<td>int</td>
+</tr>
+<tr>
+<td>IP_TOS</td>
+<td>服务类型</td>
+<td></td>
+</tr>
+<tr>
+<td>IP_TTL</td>
+<td>生存时间</td>
+<td>int</td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li>level: IPPRO_TCP</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TCP_MAXSEG</td>
+<td>TCP最大数据段的大小</td>
+<td>int</td>
+</tr>
+<tr>
+<td>TCP_NODELAY</td>
+<td>不使用Nagle算法</td>
+<td>int</td>
 </tr>
 </tbody></table>
 <h2 id="EPOLL多路复用"><a href="#EPOLL多路复用" class="headerlink" title="EPOLL多路复用"></a>EPOLL多路复用</h2><h3 id="epoll和select的区别"><a href="#epoll和select的区别" class="headerlink" title="epoll和select的区别"></a>epoll和select的区别</h3><ol>
