@@ -1,6 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>day37_test</title>
+    <url>/2020/02/11/day37_%E5%90%B4%E5%85%8B/</url>
+    <content><![CDATA[<h1 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h1><h2 id="question1"><a href="#question1" class="headerlink" title="question1:"></a>question1:</h2><ul>
+<li>使用insert语句向表中插入三个员工的信息。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>整形</td>
+</tr>
+<tr>
+<td>name</td>
+<td>字符串型</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>salary</td>
+<td>浮点型</td>
+</tr>
+<tr>
+<td>entry_date</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>resume</td>
+<td>大文本型</td>
+</tr>
+</tbody></table>
+<h2 id="answer"><a href="#answer" class="headerlink" title="answer:"></a>answer:</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; create table Staff(id int NOT NULL AUTO_INCREMENT,PRIMARY KEY(id),name varchar(15),gender varchar(1),birthday date,salary float(10,1),entry_date date,resume text);</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; desc Staff;</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field      | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id         | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name       | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender     | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday   | date        | YES  |     | NULL    |                |</span><br><span class="line">| salary     | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| entry_date | date        | YES  |     | NULL    |                |</span><br><span class="line">| resume     | text        | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">insert</span> <span class="keyword">into</span> Staff(<span class="keyword">name</span>,gender,birthday,salary,entry_date,<span class="keyword">resume</span>) <span class="keyword">values</span>(<span class="string">'Alice'</span>,<span class="string">'F'</span>,<span class="string">'1998-01-21'</span>,<span class="number">10000</span>,<span class="string">'2018-02-14'</span>,<span class="string">'hello'</span>);</span><br><span class="line">Query OK, 1 row affected (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into Staff(name,gender,birthday,salary,entry_date,resume) values('Bob','M','1994-05-17',14000,'2016-06-12','I am professional.');</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into Staff(name,gender,birthday,salary,entry_date,resume) values('Dick','M','1992-05-17',21000,'2014-08-08','I am boss.');</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Dick  | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h1 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h1><h2 id="question2"><a href="#question2" class="headerlink" title="question2:"></a>question2:</h2><ul>
+<li>在上面创建的employee表中修改表中的纪录。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">|  1 | zs   | M      | 1985-10-08 | 2000.1 | 2009-10-10 | good employee |</span><br><span class="line">|  2 | ls   | M      | 1976-10-18 | 5000.1 | 2007-10-10 | good jobs     |</span><br><span class="line">|  3 | wu   |        | 1996-08-08 | 3000.1 | 2008-07-10 | good job      |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>要求:</li>
+</ul>
+<ol>
+<li>将所有员工薪水修改为5000元。</li>
+<li>将姓名为’zs’的员工薪水修改为3000元。</li>
+<li>将姓名为’ls’的员工薪水修改为4000元,resume改为ccc。</li>
+<li>将wu的薪水在原有基础上增加1000元。</li>
+</ol>
+<h2 id="answer-1"><a href="#answer-1" class="headerlink" title="answer:"></a>answer:</h2><ol>
+<li><p>将所有员工薪水修改为5000元。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; update Staff1 set salary=5000;</span><br><span class="line">Query OK, 3 rows affected (0.02 sec)</span><br><span class="line">Rows matched: 3  Changed: 3  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff1;</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">|  1 | zs   | M      | 1985-10-08 | 5000.0 | 2009-10-10 | good employee |</span><br><span class="line">|  2 | ls   | M      | 1976-10-18 | 5000.0 | 2007-10-10 | good jobs     |</span><br><span class="line">|  3 | wu   |        | 1996-08-08 | 5000.0 | 2008-07-10 | good job      |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将姓名为’zs’的员工薪水修改为3000元。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">mysql&gt; update Staff1 set salary=3000 where name='zs';</span><br><span class="line">Query OK, <span class="number">1</span> <span class="function">row <span class="title">affected</span> <span class="params">(<span class="number">0.03</span> sec)</span></span></span><br><span class="line"><span class="function">Rows matched: 1  Changed: 1  Warnings: 0</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">mysql&gt; select * from Staff1</span>;</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line">|  <span class="number">1</span> | zs   | M      | <span class="number">1985</span><span class="number">-10</span><span class="number">-08</span> | <span class="number">3000.0</span> | <span class="number">2009</span><span class="number">-10</span><span class="number">-10</span> | good employee |</span><br><span class="line">|  <span class="number">2</span> | ls   | M      | <span class="number">1976</span><span class="number">-10</span><span class="number">-18</span> | <span class="number">5000.0</span> | <span class="number">2007</span><span class="number">-10</span><span class="number">-10</span> | good jobs     |</span><br><span class="line">|  <span class="number">3</span> | wu   |        | <span class="number">1996</span><span class="number">-08</span><span class="number">-08</span> | <span class="number">5000.0</span> | <span class="number">2008</span><span class="number">-07</span><span class="number">-10</span> | good job      |</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line"><span class="number">3</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将姓名为’ls’的员工薪水修改为4000元,retume改为ccc。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">mysql&gt; update Staff1 set salary=4000,resume='ccc' where name='ls';</span><br><span class="line">Query OK, <span class="number">1</span> <span class="function">row <span class="title">affected</span> <span class="params">(<span class="number">0.02</span> sec)</span></span></span><br><span class="line"><span class="function">Rows matched: 1  Changed: 1  Warnings: 0</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">mysql&gt; select * from Staff1</span>;</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line">|  <span class="number">1</span> | zs   | M      | <span class="number">1985</span><span class="number">-10</span><span class="number">-08</span> | <span class="number">3000.0</span> | <span class="number">2009</span><span class="number">-10</span><span class="number">-10</span> | good employee |</span><br><span class="line">|  <span class="number">2</span> | ls   | M      | <span class="number">1976</span><span class="number">-10</span><span class="number">-18</span> | <span class="number">4000.0</span> | <span class="number">2007</span><span class="number">-10</span><span class="number">-10</span> | ccc           |</span><br><span class="line">|  <span class="number">3</span> | wu   |        | <span class="number">1996</span><span class="number">-08</span><span class="number">-08</span> | <span class="number">5000.0</span> | <span class="number">2008</span><span class="number">-07</span><span class="number">-10</span> | good job      |</span><br><span class="line">+----+------+--------+------------+--------+------------+---------------+</span><br><span class="line"><span class="number">3</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将wu的薪水在原有基础上增加1000元。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; update Staff1 set salary=salary+1000 where name='wu';</span><br><span class="line">Query OK, 1 row affected (0.03 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff1;</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">|  1 | zs   | M      | 1985-10-08 | 3000.0 | 2009-10-10 | good employee |</span><br><span class="line">|  2 | ls   | M      | 1976-10-18 | 4000.0 | 2007-10-10 | ccc           |</span><br><span class="line">|  3 | wu   |        | 1996-08-08 | 6000.0 | 2008-07-10 | good job      |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h1><h2 id="question3"><a href="#question3" class="headerlink" title="question3:"></a>question3:</h2><ol>
+<li>查询表中所有学生的信息。</li>
+<li>查询表中所有学生的姓名和对应的英语成绩。</li>
+<li>过滤表中重复数据。</li>
+</ol>
+<h2 id="answer-2"><a href="#answer-2" class="headerlink" title="answer:"></a>answer:</h2><ol>
+<li><p>查询表中所有学生的信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询表中所有学生的姓名和对应的英语成绩。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select name,english from student;</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| name      | english |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| 蔡俊彬    |      78 |</span><br><span class="line">| 陈晓城    |      98 |</span><br><span class="line">| 赵坦      |      78 |</span><br><span class="line">| 原飞飞    |      98 |</span><br><span class="line">| 李宇龙    |      84 |</span><br><span class="line">| 王金泽    |      85 |</span><br><span class="line">| 刘万鹏    |      65 |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>过滤表中重复数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select distinct * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux(25) - MySQL</title>
+    <url>/2020/02/11/Linux%20%5B25%5D%20-%20MySQL/</url>
+    <content><![CDATA[<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><ul>
+<li><p>以root用户登录MySql</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<a id="more"></a></li>
+<li><p>查看有哪些数据库</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用某个数据库</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看有哪些表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="MySQL常用数据类型"><a href="#MySQL常用数据类型" class="headerlink" title="MySQL常用数据类型"></a>MySQL常用数据类型</h2><table>
+    <tr>
+        <th>分类</th>
+        <th>数据类型</th>
+        <th>说明</th>  
+    </tr >
+    <tr >
+        <td rowspan="8">数值类型</td>
+        <td>BIT(M)</td>
+        <td>位类型。M指定位数，默认值1，范围1-64</td>
+    </tr>
+    <tr>
+        <td>BOOL，BOOLEAN</td>
+        <td>使用0或1表示假或真</td>
+    </tr>
+    <tr>
+        <td>TINYINT [UNSIGNED] [ZEROFILL]</td>
+        <td>带符号的范围是-128到127。无符号0到255。</td>
+    </tr>
+    <tr>
+        <td>SMALLINT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的16次方</td>
+    </tr>
+    <tr><td>INT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的32次方</td>
+    </tr>
+    <tr>
+        <td>BIGINT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的64次方</td>
+    </tr>
+    <tr>
+        <td>FLOAT[(M,D)] [UNSIGNED] [ZEROFILL] </td>
+        <td>M指定显示长度，d指定小数位数 （5, 2）</td>
+    </tr>
+    <tr>
+        <td>DOUBLE[(M,D)] [UNSIGNED] [ZEROFILL] </td>
+        <td>表示比float精度更大的小数</td>
+    </tr>
+    <tr >
+        <td rowspan="4">文本、二进制类型</td>
+        <td>CHAR(size)</td>
+        <td>位类型。M指定位数，默认值1，范围1-64</td>
+    </tr>
+    <tr>
+        <td >VARCHAR(size)</td>
+        <td >可变长度字符串 （varchar 是可变的） varchar（50）表示最大可以存放的长度是50</td>
+    </tr>
+    <tr>
+        <td >BLOB、LONGBLOB</td>
+        <td >二进制数据</td>
+    </tr>
+    <tr>
+        <td >TEXT(clob) LONGTEXT(longclob)</td>
+        <td >大文本</td>
+    </tr>
+    <tr>
+        <td >时间日期</td>
+        <td >TDATE/DATETIME/TimeStamp</td>
+        <td >日期类型(YYYY-MM-DD)  (YYYY-MM-DD HH:MM:SS)，TimeStamp表示时间戳，它可用于自动记录insert、update操作的时间</td>
+    </tr>
+</table>
+
+<ul>
+<li>VARCHAR、BLOB和TEXT类是变长类型。每个类型的存储需求取决于列值的实际长度。 </li>
+</ul>
+<h1 id="DDL-数据定义语言"><a href="#DDL-数据定义语言" class="headerlink" title="DDL: 数据定义语言"></a>DDL: 数据定义语言</h1><h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><ul>
+<li>创建一个数据库:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看数据库创建信息:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除数据库:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>示例: 创建一个员工表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>整型</td>
+</tr>
+<tr>
+<td>name</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>期型</td>
+</tr>
+<tr>
+<td>Entry_date</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>job</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>Salary</td>
+<td>小数型</td>
+</tr>
+<tr>
+<td>resume</td>
+<td>大文本型</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; create table staff(id int NOT NULL AUTO_INCREMENT,PRIMARY KEY(id), name varchar(15), gender varchar(1),birthday date,job varchar(20), salary float(10,1), resume text);</span><br><span class="line"></span><br><span class="line">mysql&gt; desc staff;</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field    | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id       | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender   | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday | date        | YES  |     | NULL    |                |</span><br><span class="line">| job      | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">| salary   | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| resume   | text        | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看表的创建信息</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看表的详细信息</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">desc name;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h2><h3 id="修改表的结构-表头"><a href="#修改表的结构-表头" class="headerlink" title="修改表的结构/表头"></a>修改表的结构/表头</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> <span class="keyword">name</span> (<span class="keyword">option</span>);</span><br></pre></td></tr></table></figure>
+
+<p>示例:<br>修改上面的staff表，添加ddr列:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; alter table staff add addr varchar(15);</span><br><span class="line">mysql&gt; desc staff;</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field    | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id       | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender   | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday | date        | YES  |     | NULL    |                |</span><br><span class="line">| job      | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">| salary   | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| resume   | text        | YES  |     | NULL    |                |</span><br><span class="line">| addr     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">8 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改列名</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">change</span> addr addr1 <span class="built_in">varchar</span>(<span class="number">15</span>);</span><br><span class="line"><span class="comment"># 删除列</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">drop</span> addr;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>insert: 向表中插入数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; create table Person1(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY(ID),FirstName varchar(15),LastName varchar(15),Age int);</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line">mysql&gt; insert into Person(FirstName, LastName, Age) values('Alice', 'Wallians', 20);</span><br><span class="line">Query OK, 1 row affected (0.05 sec)</span><br><span class="line">mysql&gt; select * from Person;</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">| personID | FirstName | LastName | Age  |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">|        1 | Alice     | Wallians |   20 |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><p>update: 修改表中数据</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> tablename <span class="keyword">set</span> LastName=<span class="string">'sky'</span> (<span class="keyword">where</span> personID=<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>不加where则修改一整列。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Dick  | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">update</span> Staff <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'Candy'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">3</span>;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Candy | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> tablename (<span class="keyword">where</span> <span class="keyword">id</span> =...);</span><br></pre></td></tr></table></figure>
+
+<h1 id="TPL-事务处理语言"><a href="#TPL-事务处理语言" class="headerlink" title="TPL: 事务处理语言"></a>TPL: 事务处理语言</h1><p>#</p>
+<p>show databases;</p>
+<p>创建数据库</p>
+<p>create database [name];</p>
+<p>使用数据库<br>use [name];</p>
+<p>create table Person(personId int NOT NULL AUTO_INCREMENT,PRIMARY KEY(personID),FirstName varchar(15),LastName varchar(15), Age int);</p>
+<p>desc Person;</p>
+<p>alter table Person add addr1 varchar(15);<br>alter table Person drop addr1; </p>
+<p>select distinct * from</p>
+<p>select distinct \</p>
+<p>逻辑运算符</p>
+<p>sql历史记录<br>vim . mysql_history </p>
+<p>逻辑运算符<br>and or not</p>
+<p>排序 orderby<br>select * from Person where Age &gt;= 20 order by Age;</p>
+<p>数据完整性<br>实体完整性：主键<br>参照完整性：外键    </p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux(3) - tmux</title>
     <url>/2020/02/10/Linux%5B3%5D%20-%20tmux/</url>
     <content><![CDATA[<h1 id="一句话介绍"><a href="#一句话介绍" class="headerlink" title="一句话介绍"></a>一句话介绍</h1><p>tmux是Linux下功能非常强大的软件，本人用其实现一个窗口下的多屏操作。<a id="more"></a></p>
@@ -1004,6 +1298,16 @@
 <h3 id="用来匹配1个任意字符"><a href="#用来匹配1个任意字符" class="headerlink" title="? 用来匹配1个任意字符"></a>? 用来匹配1个任意字符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file?&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1</span><br><span class="line">.&#x2F;file2</span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
 <h3 id="用来匹配某个范围内的字符"><a href="#用来匹配某个范围内的字符" class="headerlink" title="[] 用来匹配某个范围内的字符"></a>[] 用来匹配某个范围内的字符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -name &quot;file[0-9]&quot;</span><br><span class="line">#结果是</span><br><span class="line">.&#x2F;file1 </span><br><span class="line">.&#x2F;file2 </span><br><span class="line">.&#x2F;file3 </span><br><span class="line">.&#x2F;file4</span><br></pre></td></tr></table></figure>
 <h2 id="根据时间查找"><a href="#根据时间查找" class="headerlink" title="根据时间查找"></a>根据时间查找</h2><p><code>amin n</code> 查找n分钟以前被访问过的所有文件（+表示n分钟之前，-表示n分钟之内，+号和-号都不能省略）<br><code>cmin n</code> 查找n分钟以前文件状态被修改过的所有文件<br><code>mmin n</code> 查找n分钟以前文件内容被修改过的所有文件<br><code>atime n</code> 查找n天以前被访问过的所有文件<br><code>ctime n</code> 查找n天以前文件状态被修改过的所有文件<br><code>mtime n</code> 查找n天以前文件内容被修改过的所有文件</p>
+<h1 id="查看操作"><a href="#查看操作" class="headerlink" title="查看操作"></a>查看操作</h1><h2 id="查看进程状态"><a href="#查看进程状态" class="headerlink" title="查看进程状态"></a>查看进程状态</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -elf</span><br><span class="line"></span><br><span class="line"># 进程占用资源排名</span><br><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看线程状态"><a href="#查看线程状态" class="headerlink" title="查看线程状态"></a>查看线程状态</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -elLf</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看网络状态"><a href="#查看网络状态" class="headerlink" title="查看网络状态"></a>查看网络状态</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">netstat</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看磁盘空间"><a href="#查看磁盘空间" class="headerlink" title="查看磁盘空间"></a>查看磁盘空间</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df - h</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="shell命令"><a href="#shell命令" class="headerlink" title="shell命令"></a>shell命令</h1><h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><h3 id="程序执行完后使用echo"><a href="#程序执行完后使用echo" class="headerlink" title="程序执行完后使用echo"></a>程序执行完后使用echo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo $0 :shell或shell脚本的名字</span><br><span class="line"></span><br><span class="line">echo $* :以一对双引号给出参数列表</span><br><span class="line"></span><br><span class="line">echo $@ :将各个参数分别加双引号返回</span><br><span class="line"></span><br><span class="line">echo $# :参数的个数</span><br><span class="line"></span><br><span class="line">echo $_ : 代表上一个命令的最后一个参数</span><br><span class="line"></span><br><span class="line">echo $$ :代表所在命令的PID</span><br><span class="line"></span><br><span class="line">echo $! :代表最后执行的后台命令的PID</span><br></pre></td></tr></table></figure>
 
 <h1 id="将一些命令封装在一个文件里方便快捷执行"><a href="#将一些命令封装在一个文件里方便快捷执行" class="headerlink" title="将一些命令封装在一个文件里方便快捷执行"></a>将一些命令封装在一个文件里方便快捷执行</h1><p>比如，我想自己定义一个qmake命令来完成以下操作：</p>

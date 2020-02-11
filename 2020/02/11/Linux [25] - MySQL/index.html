@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-fill-left.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://github.com/Typewriting/Typewriting.github.io').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="基本操作 以root用户登录MySql 1mysql -u root -p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux(25) - MySQL">
+<meta property="og:url" content="https://github.com/Typewriting/Typewriting.github.io/2020/02/11/Linux%20[25]%20-%20MySQL/index.html">
+<meta property="og:site_name" content="Horizon">
+<meta property="og:description" content="基本操作 以root用户登录MySql 1mysql -u root -p">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-11T03:33:28.000Z">
+<meta property="article:modified_time" content="2020-02-11T12:35:27.301Z">
+<meta property="article:author" content="wk">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/11/Linux%20[25]%20-%20MySQL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Linux(25) - MySQL | Horizon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a href="https://github.com/Typewriting" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Horizon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">地平线</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Typewriting/Typewriting.github.io/2020/02/11/Linux%20[25]%20-%20MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/110.gif">
+      <meta itemprop="name" content="wk">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Horizon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux(25) - MySQL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-11 11:33:28 / 修改时间：20:35:27" itemprop="dateCreated datePublished" datetime="2020-02-11T11:33:28+08:00">2020-02-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><ul>
+<li><p>以root用户登录MySql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<a id="more"></a></li>
+<li><p>查看有哪些数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用某个数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看有哪些表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="MySQL常用数据类型"><a href="#MySQL常用数据类型" class="headerlink" title="MySQL常用数据类型"></a>MySQL常用数据类型</h2><table>
+    <tr>
+        <th>分类</th>
+        <th>数据类型</th>
+        <th>说明</th>  
+    </tr >
+    <tr >
+        <td rowspan="8">数值类型</td>
+        <td>BIT(M)</td>
+        <td>位类型。M指定位数，默认值1，范围1-64</td>
+    </tr>
+    <tr>
+        <td>BOOL，BOOLEAN</td>
+        <td>使用0或1表示假或真</td>
+    </tr>
+    <tr>
+        <td>TINYINT [UNSIGNED] [ZEROFILL]</td>
+        <td>带符号的范围是-128到127。无符号0到255。</td>
+    </tr>
+    <tr>
+        <td>SMALLINT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的16次方</td>
+    </tr>
+    <tr><td>INT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的32次方</td>
+    </tr>
+    <tr>
+        <td>BIGINT [UNSIGNED] [ZEROFILL]</td>
+        <td>2的64次方</td>
+    </tr>
+    <tr>
+        <td>FLOAT[(M,D)] [UNSIGNED] [ZEROFILL] </td>
+        <td>M指定显示长度，d指定小数位数 （5, 2）</td>
+    </tr>
+    <tr>
+        <td>DOUBLE[(M,D)] [UNSIGNED] [ZEROFILL] </td>
+        <td>表示比float精度更大的小数</td>
+    </tr>
+    <tr >
+        <td rowspan="4">文本、二进制类型</td>
+        <td>CHAR(size)</td>
+        <td>位类型。M指定位数，默认值1，范围1-64</td>
+    </tr>
+    <tr>
+        <td >VARCHAR(size)</td>
+        <td >可变长度字符串 （varchar 是可变的） varchar（50）表示最大可以存放的长度是50</td>
+    </tr>
+    <tr>
+        <td >BLOB、LONGBLOB</td>
+        <td >二进制数据</td>
+    </tr>
+    <tr>
+        <td >TEXT(clob) LONGTEXT(longclob)</td>
+        <td >大文本</td>
+    </tr>
+    <tr>
+        <td >时间日期</td>
+        <td >TDATE/DATETIME/TimeStamp</td>
+        <td >日期类型(YYYY-MM-DD)  (YYYY-MM-DD HH:MM:SS)，TimeStamp表示时间戳，它可用于自动记录insert、update操作的时间</td>
+    </tr>
+</table>
+
+<ul>
+<li>VARCHAR、BLOB和TEXT类是变长类型。每个类型的存储需求取决于列值的实际长度。 </li>
+</ul>
+<h1 id="DDL-数据定义语言"><a href="#DDL-数据定义语言" class="headerlink" title="DDL: 数据定义语言"></a>DDL: 数据定义语言</h1><h2 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h2><ul>
+<li>创建一个数据库:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看数据库创建信息:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除数据库:</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>示例: 创建一个员工表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>整型</td>
+</tr>
+<tr>
+<td>name</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>期型</td>
+</tr>
+<tr>
+<td>Entry_date</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>job</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>Salary</td>
+<td>小数型</td>
+</tr>
+<tr>
+<td>resume</td>
+<td>大文本型</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table staff(id int NOT NULL AUTO_INCREMENT,PRIMARY KEY(id), name varchar(15), gender varchar(1),birthday date,job varchar(20), salary float(10,1), resume text);</span><br><span class="line"></span><br><span class="line">mysql&gt; desc staff;</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field    | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id       | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender   | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday | date        | YES  |     | NULL    |                |</span><br><span class="line">| job      | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">| salary   | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| resume   | text        | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看表的创建信息</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看表的详细信息</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc name;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h2><h3 id="修改表的结构-表头"><a href="#修改表的结构-表头" class="headerlink" title="修改表的结构/表头"></a>修改表的结构/表头</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> <span class="keyword">name</span> (<span class="keyword">option</span>);</span><br></pre></td></tr></table></figure>
+
+<p>示例:<br>修改上面的staff表，添加ddr列:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table staff add addr varchar(15);</span><br><span class="line">mysql&gt; desc staff;</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field    | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id       | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender   | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday | date        | YES  |     | NULL    |                |</span><br><span class="line">| job      | varchar(20) | YES  |     | NULL    |                |</span><br><span class="line">| salary   | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| resume   | text        | YES  |     | NULL    |                |</span><br><span class="line">| addr     | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">----------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">8 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改列名</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">change</span> addr addr1 <span class="built_in">varchar</span>(<span class="number">15</span>);</span><br><span class="line"><span class="comment"># 删除列</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">drop</span> addr;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>insert: 向表中插入数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table Person1(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY(ID),FirstName varchar(15),LastName varchar(15),Age int);</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line">mysql&gt; insert into Person(FirstName, LastName, Age) values('Alice', 'Wallians', 20);</span><br><span class="line">Query OK, 1 row affected (0.05 sec)</span><br><span class="line">mysql&gt; select * from Person;</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">| personID | FirstName | LastName | Age  |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">|        1 | Alice     | Wallians |   20 |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><p>update: 修改表中数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> tablename <span class="keyword">set</span> LastName=<span class="string">'sky'</span> (<span class="keyword">where</span> personID=<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>不加where则修改一整列。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Dick  | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">update</span> Staff <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'Candy'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">3</span>;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Candy | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> tablename (<span class="keyword">where</span> <span class="keyword">id</span> =...);</span><br></pre></td></tr></table></figure>
+
+<h1 id="TPL-事务处理语言"><a href="#TPL-事务处理语言" class="headerlink" title="TPL: 事务处理语言"></a>TPL: 事务处理语言</h1><p>#</p>
+<p>show databases;</p>
+<p>创建数据库</p>
+<p>create database [name];</p>
+<p>使用数据库<br>use [name];</p>
+<p>create table Person(personId int NOT NULL AUTO_INCREMENT,PRIMARY KEY(personID),FirstName varchar(15),LastName varchar(15), Age int);</p>
+<p>desc Person;</p>
+<p>alter table Person add addr1 varchar(15);<br>alter table Person drop addr1; </p>
+<p>select distinct * from</p>
+<p>select distinct \</p>
+<p>逻辑运算符</p>
+<p>sql历史记录<br>vim . mysql_history </p>
+<p>逻辑运算符<br>and or not</p>
+<p>排序 orderby<br>select * from Person where Age &gt;= 20 order by Age;</p>
+<p>数据完整性<br>实体完整性：主键<br>参照完整性：外键    </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/10/Linux%5B3%5D%20-%20tmux/" rel="prev" title="Linux(3) - tmux">
+      <i class="fa fa-chevron-left"></i> Linux(3) - tmux
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/11/day37_%E5%90%B4%E5%85%8B/" rel="next" title="day37_test">
+      day37_test <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80ODM5Ny8yNDg5MQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本操作"><span class="nav-number">1.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL常用数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL常用数据类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDL-数据定义语言"><span class="nav-number">2.</span> <span class="nav-text">DDL: 数据定义语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库操作"><span class="nav-number">2.1.</span> <span class="nav-text">数据库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表操作"><span class="nav-number">2.1.1.</span> <span class="nav-text">表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">2.1.2.</span> <span class="nav-text">创建表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改表"><span class="nav-number">2.2.</span> <span class="nav-text">修改表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改表的结构-表头"><span class="nav-number">2.2.1.</span> <span class="nav-text">修改表的结构&#x2F;表头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">2.2.2.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改数据"><span class="nav-number">2.2.3.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据"><span class="nav-number">2.2.4.</span> <span class="nav-text">删除数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TPL-事务处理语言"><span class="nav-number">3.</span> <span class="nav-text">TPL: 事务处理语言</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wk"
+      src="/images/110.gif">
+  <p class="site-author-name" itemprop="name">wk</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Typewriting" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Typewriting"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:brainsshock0@gmail.com" title="E-Mail → mailto:brainsshock0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/rgzz0" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;rgzz0" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wk</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
