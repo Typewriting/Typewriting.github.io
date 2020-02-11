@@ -3,7 +3,7 @@
   <entry>
     <title>day37_test</title>
     <url>/2020/02/11/day37_%E5%90%B4%E5%85%8B/</url>
-    <content><![CDATA[<h1 id="练习1"><a href="#练习1" class="headerlink" title="练习1"></a>练习1</h1><h2 id="question1"><a href="#question1" class="headerlink" title="question1:"></a>question1:</h2><ul>
+    <content><![CDATA[<h1 id="Insert语句练习"><a href="#Insert语句练习" class="headerlink" title="Insert语句练习"></a>Insert语句练习</h1><h2 id="question"><a href="#question" class="headerlink" title="question:"></a>question:</h2><ul>
 <li>使用insert语句向表中插入三个员工的信息。</li>
 </ul>
 <table>
@@ -44,7 +44,7 @@
 </tbody></table>
 <h2 id="answer"><a href="#answer" class="headerlink" title="answer:"></a>answer:</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; create table Staff(id int NOT NULL AUTO_INCREMENT,PRIMARY KEY(id),name varchar(15),gender varchar(1),birthday date,salary float(10,1),entry_date date,resume text);</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; desc Staff;</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| Field      | Type        | Null | Key | Default | Extra          |</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">| id         | int         | NO   | PRI | NULL    | auto_increment |</span><br><span class="line">| name       | varchar(15) | YES  |     | NULL    |                |</span><br><span class="line">| gender     | varchar(1)  | YES  |     | NULL    |                |</span><br><span class="line">| birthday   | date        | YES  |     | NULL    |                |</span><br><span class="line">| salary     | float(10,1) | YES  |     | NULL    |                |</span><br><span class="line">| entry_date | date        | YES  |     | NULL    |                |</span><br><span class="line">| resume     | text        | YES  |     | NULL    |                |</span><br><span class="line">+<span class="comment">------------+-------------+------+-----+---------+----------------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">insert</span> <span class="keyword">into</span> Staff(<span class="keyword">name</span>,gender,birthday,salary,entry_date,<span class="keyword">resume</span>) <span class="keyword">values</span>(<span class="string">'Alice'</span>,<span class="string">'F'</span>,<span class="string">'1998-01-21'</span>,<span class="number">10000</span>,<span class="string">'2018-02-14'</span>,<span class="string">'hello'</span>);</span><br><span class="line">Query OK, 1 row affected (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into Staff(name,gender,birthday,salary,entry_date,resume) values('Bob','M','1994-05-17',14000,'2016-06-12','I am professional.');</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into Staff(name,gender,birthday,salary,entry_date,resume) values('Dick','M','1992-05-17',21000,'2014-08-08','I am boss.');</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Dick  | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
-<h1 id="练习2"><a href="#练习2" class="headerlink" title="练习2"></a>练习2</h1><h2 id="question2"><a href="#question2" class="headerlink" title="question2:"></a>question2:</h2><ul>
+<h1 id="Update语句练习"><a href="#Update语句练习" class="headerlink" title="Update语句练习"></a>Update语句练习</h1><h2 id="question2"><a href="#question2" class="headerlink" title="question2:"></a>question2:</h2><ul>
 <li>在上面创建的employee表中修改表中的纪录。</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume        |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br><span class="line">|  1 | zs   | M      | 1985-10-08 | 2000.1 | 2009-10-10 | good employee |</span><br><span class="line">|  2 | ls   | M      | 1976-10-18 | 5000.1 | 2007-10-10 | good jobs     |</span><br><span class="line">|  3 | wu   |        | 1996-08-08 | 3000.1 | 2008-07-10 | good job      |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+---------------+</span></span><br></pre></td></tr></table></figure>
@@ -73,12 +73,25 @@
 
 </li>
 </ol>
-<h1 id="练习3"><a href="#练习3" class="headerlink" title="练习3"></a>练习3</h1><h2 id="question3"><a href="#question3" class="headerlink" title="question3:"></a>question3:</h2><ol>
+<h1 id="Delete语句练习"><a href="#Delete语句练习" class="headerlink" title="Delete语句练习"></a>Delete语句练习</h1><h2 id="question-1"><a href="#question-1" class="headerlink" title="question:"></a>question:</h2><ol>
+<li>删除表中名称为’zs’的记录。</li>
+<li>删除表中所有记录。</li>
+</ol>
+<h2 id="answer-2"><a href="#answer-2" class="headerlink" title="answer:"></a>answer:</h2><ol>
+<li><p>删除表中名称为’zs’的记录。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; delete from Staff1 where name='zs';</span><br><span class="line">Query OK, 1 row affected (0.13 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff1;</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+----------+</span></span><br><span class="line">| id | name | gender | birthday   | salary | entry_date | resume   |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+----------+</span></span><br><span class="line">|  2 | ls   | M      | 1976-10-18 | 4000.0 | 2007-10-10 | ccc      |</span><br><span class="line">|  3 | wu   |        | 1996-08-08 | 6000.0 | 2008-07-10 | good job |</span><br><span class="line">+<span class="comment">----+------+--------+------------+--------+------------+----------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除表中所有记录。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; delete from Staff1;</span><br><span class="line">Query OK, 2 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff1;</span><br><span class="line">Empty <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="Select练习-1"><a href="#Select练习-1" class="headerlink" title="Select练习(1)"></a>Select练习(1)</h1><h2 id="question-2"><a href="#question-2" class="headerlink" title="question:"></a>question:</h2><ol>
 <li>查询表中所有学生的信息。</li>
 <li>查询表中所有学生的姓名和对应的英语成绩。</li>
 <li>过滤表中重复数据。</li>
 </ol>
-<h2 id="answer-2"><a href="#answer-2" class="headerlink" title="answer:"></a>answer:</h2><ol>
+<h2 id="answer-3"><a href="#answer-3" class="headerlink" title="answer:"></a>answer:</h2><ol>
 <li><p>查询表中所有学生的信息。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 </li>
@@ -86,7 +99,62 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select name,english from student;</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| name      | english |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| 蔡俊彬    |      78 |</span><br><span class="line">| 陈晓城    |      98 |</span><br><span class="line">| 赵坦      |      78 |</span><br><span class="line">| 原飞飞    |      98 |</span><br><span class="line">| 李宇龙    |      84 |</span><br><span class="line">| 王金泽    |      85 |</span><br><span class="line">| 刘万鹏    |      65 |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>过滤表中重复数据。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select distinct * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select distinct * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> <span class="keyword">distinct</span> math <span class="keyword">from</span> student;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| math |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|   90 |</span><br><span class="line">|   56 |</span><br><span class="line">|   77 |</span><br><span class="line">|   67 |</span><br><span class="line">|   45 |</span><br><span class="line">|   30 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">6 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="select练习-2"><a href="#select练习-2" class="headerlink" title="select练习(2)"></a>select练习(2)</h1><h2 id="queston"><a href="#queston" class="headerlink" title="queston:"></a>queston:</h2><ol>
+<li>在所有学生数学分数上加10分特长分。</li>
+<li>统计每个学生的总分。</li>
+<li>使用别名表示学生分数。</li>
+</ol>
+<h2 id="answer-4"><a href="#answer-4" class="headerlink" title="answer:"></a>answer:</h2><ol>
+<li><p>在所有学生数学分数上加10分特长分。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select math+10  from student;</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">| math+10 |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">|     100 |</span><br><span class="line">|      66 |</span><br><span class="line">|      87 |</span><br><span class="line">|     100 |</span><br><span class="line">|      77 |</span><br><span class="line">|      55 |</span><br><span class="line">|      40 |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>统计每个学生的总分。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select id,name,chinese+math+english as total from student;</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">| id   | name      | total |</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">|    1 | 蔡俊彬    |   257 |</span><br><span class="line">|    2 | 陈晓城    |   221 |</span><br><span class="line">|    3 | 赵坦      |   242 |</span><br><span class="line">|    4 | 原飞飞    |   276 |</span><br><span class="line">|    5 | 李宇龙    |   233 |</span><br><span class="line">|    6 | 王金泽    |   185 |</span><br><span class="line">|    7 | 刘万鹏    |   170 |</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用别名表示学生分数。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select math as hahaha from student;</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">| hahaha |</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">|     90 |</span><br><span class="line">|     56 |</span><br><span class="line">|     77 |</span><br><span class="line">|     90 |</span><br><span class="line">|     67 |</span><br><span class="line">|     45 |</span><br><span class="line">|     30 |</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h1 id="Select练习-3"><a href="#Select练习-3" class="headerlink" title="Select练习(3)"></a>Select练习(3)</h1><h2 id="question-3"><a href="#question-3" class="headerlink" title="question:"></a>question:</h2><ul>
+<li>使用where子句，进行过滤查询。练习：</li>
+</ul>
+<ol>
+<li>查询姓为王的学生成绩</li>
+<li>查询英语成绩大于90分的同学</li>
+<li>查询总分大于200分的所有同学</li>
+</ol>
+<h2 id="answer："><a href="#answer：" class="headerlink" title="answer："></a>answer：</h2><ol>
+<li><p>查询姓为王的学生成绩</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where name like  '王%';</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询英语成绩大于90分的同学</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where english&gt;90;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询总分大于200分的所有同学</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where chinese+math+english&gt;200;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="Select练习-4"><a href="#Select练习-4" class="headerlink" title="Select练习(4)"></a>Select练习(4)</h1><h2 id="question-4"><a href="#question-4" class="headerlink" title="question"></a>question</h2><ol>
+<li>查询英语分数在 80－90之间的同学。</li>
+<li>查询数学分数为89,90,91的同学。</li>
+<li>查询数学分&gt;80，语文分&gt;80的同学。</li>
+</ol>
+<h2 id="answer-5"><a href="#answer-5" class="headerlink" title="answer"></a>answer</h2><ol>
+<li><p>查询英语分数在 80－90之间的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where english between 80 and 90;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数学分数为89,90,91的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where math=89 or math=90 or math=91;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数学分&gt;80，语文分&gt;80的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where math&gt;80 and chinese&gt;80;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></li>
 </ol>
 ]]></content>
       <categories>
@@ -259,32 +327,135 @@
 
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改列名</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">change</span> addr addr1 <span class="built_in">varchar</span>(<span class="number">15</span>);</span><br><span class="line"><span class="comment"># 删除列</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> staff <span class="keyword">drop</span> addr;</span><br></pre></td></tr></table></figure>
 
-<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>insert: 向表中插入数据。</p>
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><ul>
+<li>insert: 向表中插入数据。</li>
+</ul>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; create table Person1(ID int NOT NULL AUTO_INCREMENT,PRIMARY KEY(ID),FirstName varchar(15),LastName varchar(15),Age int);</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line">mysql&gt; insert into Person(FirstName, LastName, Age) values('Alice', 'Wallians', 20);</span><br><span class="line">Query OK, 1 row affected (0.05 sec)</span><br><span class="line">mysql&gt; select * from Person;</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">| personID | FirstName | LastName | Age  |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">|        1 | Alice     | Wallians |   20 |</span><br><span class="line">+<span class="comment">----------+-----------+----------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
-<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><p>update: 修改表中数据</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> tablename <span class="keyword">set</span> LastName=<span class="string">'sky'</span> (<span class="keyword">where</span> personID=<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><ul>
+<li>update: 修改表中数据<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> tablename <span class="keyword">set</span> LastName=<span class="string">'sky'</span> (<span class="keyword">where</span> personID=<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <p>不加where则修改一整列。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Dick  | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">update</span> Staff <span class="keyword">set</span> <span class="keyword">name</span>=<span class="string">'Candy'</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">3</span>;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from Staff;</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">| id | name  | gender | birthday   | salary  | entry_date | resume             |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">|  1 | Alice | F      | 1998-01-21 | 10000.0 | 2018-02-14 | hello              |</span><br><span class="line">|  2 | Bob   | M      | 1994-05-17 | 14000.0 | 2016-06-12 | I am professional. |</span><br><span class="line">|  3 | Candy | M      | 1992-05-17 | 21000.0 | 2014-08-08 | I am boss.         |</span><br><span class="line">+<span class="comment">----+-------+--------+------------+---------+------------+--------------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><h4 id="select-查询数据"><a href="#select-查询数据" class="headerlink" title="select:查询数据"></a>select:查询数据</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> (<span class="keyword">DISTINCT</span>) (column1,column2) <span class="keyword">from</span> tablename;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>DISTINCT为可选项，存在DISTINCT时，为剔除重复重复数据</li>
+<li>(column1,column2)若为 * ，则表示查询所有列的数据</li>
+</ol>
+<ul>
+<li>对指定的表目起别名：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">column</span> <span class="keyword">as</span> 别名 <span class="keyword">from</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在where子句中经常使用的运算符"><a href="#在where子句中经常使用的运算符" class="headerlink" title="在where子句中经常使用的运算符"></a>在where子句中经常使用的运算符</h4><ul>
+<li>比较运算符:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&gt;、&lt;、&lt;=、&gt;=、=、&lt;&gt;</th>
+<th>大于、小于、大于(小于)等于、不等于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BETWEEN  …AND…</td>
+<td>显示在某一区间的值(含头含尾)</td>
+</tr>
+<tr>
+<td>IN(set)</td>
+<td>显示在in列表中的值，例：in(100,200)</td>
+</tr>
+<tr>
+<td>LIKE ‘张%’</td>
+<td>模糊查询</td>
+</tr>
+<tr>
+<td>IS NULL</td>
+<td>判断是否为空</td>
+</tr>
+</tbody></table>
+<p><code>Like语句中，% 代表零个或多个任意字符，_ 代表一个字符，例first_name like ‘_a%’;</code></p>
+<ul>
+<li>逻辑运算符:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>and</th>
+<th>多个条件同时成立</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>or</td>
+<td>多个条件任一成立</td>
+</tr>
+<tr>
+<td>not</td>
+<td>不成立，例：where not(salary&gt;100);</td>
+</tr>
+</tbody></table>
+<h4 id="使用order-by子句排序查询结果"><a href="#使用order-by子句排序查询结果" class="headerlink" title="使用order by子句排序查询结果:"></a>使用order by子句排序查询结果:</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> student <span class="keyword">order</span> <span class="keyword">by</span> math <span class="keyword">asc</span>|<span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Order by 指定排序的列，排序的列即可是表中的列名，也可以是select 语句后指定的列名</li>
+<li>Asc 升序、Desc 降序</li>
+</ol>
+<p>用法：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select distinct * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> <span class="keyword">name</span>,english <span class="keyword">from</span> student;</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| name      | english |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| 蔡俊彬    |      78 |</span><br><span class="line">| 陈晓城    |      98 |</span><br><span class="line">| 赵坦      |      78 |</span><br><span class="line">| 原飞飞    |      98 |</span><br><span class="line">| 李宇龙    |      84 |</span><br><span class="line">| 王金泽    |      85 |</span><br><span class="line">| 刘万鹏    |      65 |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在查询的时可同时对表中的数据进行运算，但影响表的原数据：<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select chinese-10 from student;</span><br><span class="line">+<span class="comment">------------+</span></span><br><span class="line">| chinese-10 |</span><br><span class="line">+<span class="comment">------------+</span></span><br><span class="line">|         79 |</span><br><span class="line">|         57 |</span><br><span class="line">|         77 |</span><br><span class="line">|         78 |</span><br><span class="line">|         72 |</span><br><span class="line">|         45 |</span><br><span class="line">|         65 |</span><br><span class="line">+<span class="comment">------------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; ^C</span><br><span class="line">mysql&gt; <span class="keyword">select</span> chinese <span class="keyword">from</span> student;</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">| chinese |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">|      89 |</span><br><span class="line">|      67 |</span><br><span class="line">|      87 |</span><br><span class="line">|      88 |</span><br><span class="line">|      82 |</span><br><span class="line">|      55 |</span><br><span class="line">|      75 |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="select练习"><a href="#select练习" class="headerlink" title="select练习"></a>select练习</h4><ul>
+<li>对于表格:<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>查询表中所有学生的信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询表中所有学生的姓名和对应的英语成绩。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select name,english from student;</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| name      | english |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">| 蔡俊彬    |      78 |</span><br><span class="line">| 陈晓城    |      98 |</span><br><span class="line">| 赵坦      |      78 |</span><br><span class="line">| 原飞飞    |      98 |</span><br><span class="line">| 李宇龙    |      84 |</span><br><span class="line">| 王金泽    |      85 |</span><br><span class="line">| 刘万鹏    |      65 |</span><br><span class="line">+<span class="comment">-----------+---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>过滤表中重复数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select distinct * from student;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">|    7 | 刘万鹏    |      75 |      65 |   30 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> <span class="keyword">distinct</span> math <span class="keyword">from</span> student;</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">| math |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">|   90 |</span><br><span class="line">|   56 |</span><br><span class="line">|   77 |</span><br><span class="line">|   67 |</span><br><span class="line">|   45 |</span><br><span class="line">|   30 |</span><br><span class="line">+<span class="comment">------+</span></span><br><span class="line">6 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在所有学生数学分数上加10分特长分。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select math+10  from student;</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">| math+10 |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">|     100 |</span><br><span class="line">|      66 |</span><br><span class="line">|      87 |</span><br><span class="line">|     100 |</span><br><span class="line">|      77 |</span><br><span class="line">|      55 |</span><br><span class="line">|      40 |</span><br><span class="line">+<span class="comment">---------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>统计每个学生的总分。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select id,name,chinese+math+english as total from student;</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">| id   | name      | total |</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">|    1 | 蔡俊彬    |   257 |</span><br><span class="line">|    2 | 陈晓城    |   221 |</span><br><span class="line">|    3 | 赵坦      |   242 |</span><br><span class="line">|    4 | 原飞飞    |   276 |</span><br><span class="line">|    5 | 李宇龙    |   233 |</span><br><span class="line">|    6 | 王金泽    |   185 |</span><br><span class="line">|    7 | 刘万鹏    |   170 |</span><br><span class="line">+<span class="comment">------+-----------+-------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用别名表示学生分数。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select math as hahaha from student;</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">| hahaha |</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">|     90 |</span><br><span class="line">|     56 |</span><br><span class="line">|     77 |</span><br><span class="line">|     90 |</span><br><span class="line">|     67 |</span><br><span class="line">|     45 |</span><br><span class="line">|     30 |</span><br><span class="line">+<span class="comment">--------+</span></span><br><span class="line">7 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询姓为王的学生成绩</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where name like  '王%';</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询英语成绩大于90分的同学</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where english&gt;90;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询总分大于200分的所有同学</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where chinese+math+english&gt;200;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    2 | 陈晓城    |      67 |      98 |   56 |</span><br><span class="line">|    3 | 赵坦      |      87 |      78 |   77 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询英语分数在 80－90之间的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where english between 80 and 90;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    5 | 李宇龙    |      82 |      84 |   67 |</span><br><span class="line">|    6 | 王金泽    |      55 |      85 |   45 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数学分数为89,90,91的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where math=89 or math=90 or math=91;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数学分&gt;80，语文分&gt;80的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from student where math&gt;80 and chinese&gt;80;</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">| id   | name      | chinese | english | math |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">|    1 | 蔡俊彬    |      89 |      78 |   90 |</span><br><span class="line">|    4 | 原飞飞    |      88 |      98 |   90 |</span><br><span class="line">+<span class="comment">------+-----------+---------+---------+------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
 <h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> tablename (<span class="keyword">where</span> <span class="keyword">id</span> =...);</span><br></pre></td></tr></table></figure>
 
-<h1 id="TPL-事务处理语言"><a href="#TPL-事务处理语言" class="headerlink" title="TPL: 事务处理语言"></a>TPL: 事务处理语言</h1><p>#</p>
-<p>show databases;</p>
-<p>创建数据库</p>
-<p>create database [name];</p>
-<p>使用数据库<br>use [name];</p>
-<p>create table Person(personId int NOT NULL AUTO_INCREMENT,PRIMARY KEY(personID),FirstName varchar(15),LastName varchar(15), Age int);</p>
-<p>desc Person;</p>
-<p>alter table Person add addr1 varchar(15);<br>alter table Person drop addr1; </p>
-<p>select distinct * from</p>
-<p>select distinct \</p>
-<p>逻辑运算符</p>
-<p>sql历史记录<br>vim . mysql_history </p>
-<p>逻辑运算符<br>and or not</p>
-<p>排序 orderby<br>select * from Person where Age &gt;= 20 order by Age;</p>
-<p>数据完整性<br>实体完整性：主键<br>参照完整性：外键    </p>
+<h1 id="外键的使用"><a href="#外键的使用" class="headerlink" title="外键的使用"></a>外键的使用</h1><p><a href="http://www.cppblog.com/wolf/articles/69089.html" target="_blank" rel="noopener">http://www.cppblog.com/wolf/articles/69089.html</a></p>
 ]]></content>
       <categories>
         <category>Linux</category>
