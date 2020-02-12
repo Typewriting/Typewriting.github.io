@@ -1455,8 +1455,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown语法</title>
+    <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>比较Typora, 目前使用sublime。</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
+      <categories>
+        <category>writing</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux(3) - vim</title>
+    <url>/2020/01/24/Linux%5B3%5D%20-%20vim/</url>
+    <content><![CDATA[<h1 id="使用跳转函数查看函数定义"><a href="#使用跳转函数查看函数定义" class="headerlink" title="使用跳转函数查看函数定义"></a>使用跳转函数查看函数定义</h1><ol>
+<li><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install exuberant-ctags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成tags</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在欲查看代码的文件夹下执行</span></span><br><span class="line">ctags -R</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跳转</p>
+</li>
+</ol>
+<p>将光标移到想要跳转的函数或变量  快捷键 “ CTRL + ] “</p>
+<ol start="4">
+<li>回转</li>
+</ol>
+<p>回到跳转之前的位置， 只需要通过快捷键“ CTRL + T ”</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux(1) - 常用命令</title>
-    <url>/2020/01/26/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <url>/2020/01/22/Linux%5B1%5D%20-%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h1 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h1><p>新建(添加)用户<br><code>$ useradd [username]</code><br><code>$ useradd -m [username] -s /bin/bash  #添加用户并指定家目录</code> <a id="more"></a><br>配置密码<br><code>$ sudo passwd [username]</code><br>切换用户<br><code>$ su [username]</code><br>显示所有用户<br><code>cat /etc/passwd</code><br>退出当前用户<br><code>$ exit</code><br>删除用户<br><code>$ userdel [username]</code><br><code>$ userdel -r [username] #删除用户及家目录下的文件</code></p>
 <h2 id="给某一普通用户配置sudo权限"><a href="#给某一普通用户配置sudo权限" class="headerlink" title="给某一普通用户配置sudo权限"></a>给某一普通用户配置sudo权限</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.切换到root用户：</span></span><br><span class="line">$ su root </span><br><span class="line"></span><br><span class="line"><span class="comment">#2.添加sudoers文件写权限：</span></span><br><span class="line">$ chmod u+w /etc/sudoers </span><br><span class="line"></span><br><span class="line"><span class="comment">#3.编辑sudoers文件</span></span><br><span class="line">vim /etc/sudoers</span><br><span class="line"></span><br><span class="line"><span class="comment">#找到 root ALL=(ALL) ALL，在他其下面添加：</span></span><br><span class="line">xxx ALL=(ALL) ALL (xxx = 用户名)</span><br><span class="line"></span><br><span class="line"><span class="comment">#可选一下任意一种形式：</span></span><br><span class="line"><span class="comment">#允许用户youuser执行sudo命令(需要输入密码):</span></span><br><span class="line">username            ALL=(ALL)                ALL</span><br><span class="line"><span class="comment">#允许用户组youuser里面的用户执行sudo命令(需要输入密码)：</span></span><br><span class="line">%username           ALL=(ALL)                ALL</span><br><span class="line"><span class="comment">#允许用户youuser执行sudo命令,并且在执行的时候不输入密码：</span></span><br><span class="line">username            ALL=(ALL)                NOPASSWD: ALL</span><br><span class="line"><span class="comment">#允许用户组youuser里面的用户执行sudo命令,并且在执行的时候不输入密码：</span></span><br><span class="line">%username           ALL=(ALL)                NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.撤销sudoers文件写权限：</span></span><br><span class="line">$ chmod u-w /etc/sudoers</span><br></pre></td></tr></table></figure>
 <p>如此，普通用户就可以使用sudo了。<br>（来源：<a href="https://www.jianshu.com/p/3d435e09712a）" target="_blank" rel="noopener">https://www.jianshu.com/p/3d435e09712a）</a></p>
@@ -1558,45 +1597,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown语法</title>
-    <url>/2020/01/25/markdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="markdown编辑器"><a href="#markdown编辑器" class="headerlink" title="markdown编辑器"></a>markdown编辑器</h1><p>比较Typora, 目前使用sublime。</p>
-<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1>]]></content>
-      <categories>
-        <category>writing</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux(1) - 常用命令</title>
-    <url>/2020/01/24/Linux%5B3%5D%20-%20vim/</url>
-    <content><![CDATA[<h1 id="使用跳转函数查看函数定义"><a href="#使用跳转函数查看函数定义" class="headerlink" title="使用跳转函数查看函数定义"></a>使用跳转函数查看函数定义</h1><ol>
-<li><p>安装</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install exuberant-ctags</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成tags</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在欲查看代码的文件夹下执行</span></span><br><span class="line">ctags -R</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>跳转</p>
-</li>
-</ol>
-<p>将光标移到想要跳转的函数或变量  快捷键 “ CTRL + ] “</p>
-<ol start="4">
-<li>回转</li>
-</ol>
-<p>回到跳转之前的位置， 只需要通过快捷键“ CTRL + T ”</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>vim</tag>
       </tags>
   </entry>
 </search>
