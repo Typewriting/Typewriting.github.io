@@ -3,7 +3,8 @@
   <entry>
     <title>day37_test</title>
     <url>/2020/02/11/day37_%E5%90%B4%E5%85%8B/</url>
-    <content><![CDATA[<h1 id="Insert语句练习"><a href="#Insert语句练习" class="headerlink" title="Insert语句练习"></a>Insert语句练习</h1><h2 id="question"><a href="#question" class="headerlink" title="question:"></a>question:</h2><ul>
+    <content><![CDATA[<h1 id="Insert语句练习"><a href="#Insert语句练习" class="headerlink" title="Insert语句练习"></a>Insert语句练习</h1><a id="more"></a>
+<h2 id="question"><a href="#question" class="headerlink" title="question:"></a>question:</h2><ul>
 <li>使用insert语句向表中插入三个员工的信息。</li>
 </ul>
 <table>
